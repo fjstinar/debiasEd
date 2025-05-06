@@ -1,0 +1,13 @@
+*.pkl
+*.DS_Store
+/data/*
+/experiments/*
+*pyc
+*.ipynb_checkpoints/
+_runai_config.yaml
+cheat_sheet.txt
+command_queue.txt
+/_result_pull.sh
+/cluster/*
+*.csv
+Dockerfile
