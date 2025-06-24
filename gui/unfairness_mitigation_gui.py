@@ -4,7 +4,7 @@ import os
 import sys
 import numpy as np
 from tkinter import messagebox
-from tkinter import ttk  # For the Treeview widget
+from tkinter import ttk  # For the Treeview widget and Combobox
 import numpy
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, confusion_matrix
@@ -15,8 +15,11 @@ project_root = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__f
 sys.path.append(project_root)
 sys.path.append(os.path.join(project_root, "src"))
 
-# Now import the class
+# Now import the classes
 from src.predictors.decision_tree import DTClassifier
+
+# Import simplified preprocessing techniques
+from gui.preprocessing_simple import create_preprocessor
 
 class SimpleDTClassifier:
     """Simple decision tree classifier for the GUI"""
@@ -34,13 +37,32 @@ class SimpleDTClassifier:
         predictions = self.model.predict(x)
         return predictions, y
 
+class PreprocessingWrapper:
+    """Wrapper to handle preprocessing techniques in the GUI"""
+    
+    def __init__(self):
+        self.available_methods = [
+            'None (Baseline)',
+            'SMOTE (Oversampling)',
+            'Rebalancing', 
+            'Calders (Reweighting)'
+        ]
+        
+    def get_method_names(self):
+        return self.available_methods
+    
+    def create_preprocessor(self, method_name, settings=None):
+        """Create a preprocessor instance based on the method name"""
+        return create_preprocessor(method_name)
+
 class DataLoaderApp:
     def __init__(self, root):
         self.root = root
-        self.root.title("Data Dictionary Loader")
-        self.root.geometry("600x400")
+        self.root.title("Data Dictionary Loader with Fairness Preprocessing")
+        self.root.geometry("700x500")
         self.current_data = None
         self.dataset_name = None
+        self.preprocessing_wrapper = PreprocessingWrapper()
         
         # Create main frames
         self.header_frame = tk.Frame(root, pady=10)
@@ -55,13 +77,13 @@ class DataLoaderApp:
         # Header
         tk.Label(
             self.header_frame, 
-            text="Unfairness Mitigation - Dataset Loader", 
+            text="Unfairness Mitigation - Dataset Loader & Preprocessing", 
             font=("Arial", 16, "bold")
         ).pack()
         
         # Dataset buttons section
         datasets_frame = tk.LabelFrame(self.content_frame, text="Available Datasets")
-        datasets_frame.pack(fill=tk.BOTH, expand=True, padx=10, pady=10)
+        datasets_frame.pack(fill=tk.X, padx=10, pady=5)
         
         # Get list of dataset folders
         notebook_dir = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "notebooks/data"))
@@ -76,11 +98,71 @@ class DataLoaderApp:
                 text=f"Load {dataset}",
                 command=lambda ds=dataset: self.load_data_dictionary(ds),
                 width=20,
-                height=2,
+                height=1,
                 relief=tk.RAISED,
                 bg="#e0e0e0"
             )
-            btn.pack(pady=5, padx=10, anchor=tk.W)
+            btn.pack(pady=2, padx=10, anchor=tk.W)
+        
+        # Add preprocessing selection section
+        preprocessing_frame = tk.LabelFrame(self.content_frame, text="Bias Mitigation Preprocessing")
+        preprocessing_frame.pack(fill=tk.X, padx=10, pady=5)
+        
+        # Preprocessing method selection
+        tk.Label(preprocessing_frame, text="Select Preprocessing Method:").pack(anchor=tk.W, padx=5, pady=2)
+        
+        self.preprocessing_var = tk.StringVar()
+        self.preprocessing_var.set('None (Baseline)')  # Default value
+        
+        self.preprocessing_combo = ttk.Combobox(
+            preprocessing_frame,
+            textvariable=self.preprocessing_var,
+            values=self.preprocessing_wrapper.get_method_names(),
+            state="readonly",
+            width=30
+        )
+        self.preprocessing_combo.pack(anchor=tk.W, padx=5, pady=2)
+        
+        # Add method descriptions
+        method_descriptions = {
+            'None (Baseline)': 'No preprocessing - train on original data',
+            'SMOTE (Oversampling)': 'Synthetic Minority Oversampling Technique - creates synthetic examples',
+            'Rebalancing': 'Rebalances demographic groups through sampling with replacement',
+            'Calders (Reweighting)': 'Reweights instances to achieve demographic independence'
+        }
+        
+        self.description_label = tk.Label(
+            preprocessing_frame, 
+            text=method_descriptions['None (Baseline)'],
+            wraplength=400,
+            justify=tk.LEFT,
+            fg="gray"
+        )
+        self.description_label.pack(anchor=tk.W, padx=5, pady=2)
+        
+        # Update description when selection changes
+        def update_description(*args):
+            method = self.preprocessing_var.get()
+            self.description_label.config(text=method_descriptions.get(method, 'Unknown method'))
+        
+        self.preprocessing_var.trace('w', update_description)
+        
+        # Training button section - initially disabled
+        training_frame = tk.Frame(self.content_frame)
+        training_frame.pack(fill=tk.X, padx=10, pady=5)
+        
+        self.train_btn = tk.Button(
+            training_frame,
+            text="Train Decision Tree with Preprocessing",
+            command=self.train_with_preprocessing,
+            width=30,
+            height=2,
+            state=tk.DISABLED,
+            bg="#4CAF50",
+            fg="white",
+            font=("Arial", 10, "bold")
+        )
+        self.train_btn.pack(pady=5)
         
         # Status indicator
         self.status_var = tk.StringVar()
@@ -94,17 +176,6 @@ class DataLoaderApp:
             padx=10
         )
         self.status_label.pack(fill=tk.X)
-        
-        # Training button section - initially disabled
-        self.train_btn = tk.Button(
-            self.content_frame,
-            text="Train Decision Tree",
-            command=self.train_decision_tree,
-            width=20,
-            height=2,
-            state=tk.DISABLED
-        )
-        self.train_btn.pack(pady=10)
     
     def _get_dataset_folders(self, notebooks_dir):
         """Get dataset folders that contain data_dictionary.pkl files"""
@@ -272,21 +343,29 @@ class DataLoaderApp:
         close_btn = tk.Button(features_window, text="Close", command=features_window.destroy)
         close_btn.pack(pady=10)
     
-    def train_decision_tree(self):
-        """Train a decision tree classifier on the loaded data and show results"""
+    def train_with_preprocessing(self):
+        """Train a decision tree classifier with preprocessing on the loaded data and show results"""
         if not self.current_data or 'data' not in self.current_data:
             messagebox.showerror("Error", "No valid data loaded for training")
             return
             
         try:
-            # Extract features and labels
+            # Extract features, labels, and demographics
             X = []
             y = []
+            demographics = []
             
             for idx, record in self.current_data['data'].items():
                 if 'features' in record and 'binary_label' in record:
                     X.append(record['features'])
                     y.append(record['binary_label'])
+                    
+                    # Extract demographics - build a dict with available demographics
+                    demo_dict = {}
+                    for demo_attr in self.current_data.get('available_demographics', []):
+                        if demo_attr in record:
+                            demo_dict[demo_attr] = record[demo_attr]
+                    demographics.append(demo_dict)
             
             if not X or not y:
                 messagebox.showerror("Error", "Could not extract features and labels from the data")
@@ -297,25 +376,73 @@ class DataLoaderApp:
             y = np.array(y)
             
             # Split the data
-            X_train, X_test, y_train, y_test = train_test_split(
-                X, y, test_size=0.2, random_state=42
+            X_train, X_test, y_train, y_test, demo_train, demo_test = train_test_split(
+                X, y, demographics, test_size=0.2, random_state=42
             )
             
-            # Create settings dictionary for the model
+            # Create settings dictionary
             settings = {
                 'predictors': {
                     'decision_tree': {
-                        'max_depth': 5  # Default max_depth
+                        'max_depth': 5
+                    }
+                },
+                'experiment': {'name': 'gui_experiment'},
+                'seeds': {'preprocessor': 42, 'model': 42},
+                'pipeline': {
+                    'attributes': {
+                        'mitigating': 'gender',  # Default - could be made configurable
+                        'discriminated': '_1'     # Default - could be made configurable
                     }
                 }
             }
             
-            # Initialize and train the model using our simplified classifier
+            # Store original data for comparison 
+            X_train_original = X_train.copy()
+            y_train_original = y_train.copy()
+            demo_train_original = demo_train.copy()
+            
+            # Apply preprocessing if selected
+            preprocessing_method = self.preprocessing_var.get()
+            preprocessor = self.preprocessing_wrapper.create_preprocessor(preprocessing_method)
+            
+            try:
+                # Apply preprocessing
+                X_train, y_train, demo_train = preprocessor.fit_transform(
+                    X_train.tolist(), y_train.tolist(), demo_train
+                )
+                
+                # Convert back to numpy arrays
+                X_train = np.array(X_train)
+                y_train = np.array(y_train)
+                
+                preprocessing_info = f"Applied {preprocessing_method}"
+                
+            except Exception as e:
+                messagebox.showwarning("Preprocessing Warning", 
+                                     f"Preprocessing failed: {str(e)}\nUsing original data instead.")
+                X_train = X_train_original
+                y_train = y_train_original
+                demo_train = demo_train_original
+                preprocessing_info = f"Preprocessing failed, using baseline"
+            
+            # Train baseline model for comparison
+            baseline_model = SimpleDTClassifier(settings)
+            baseline_model.fit(X_train_original, y_train_original)
+            baseline_predictions, _ = baseline_model.predict(X_test)
+            
+            baseline_accuracy = accuracy_score(y_test, baseline_predictions)
+            baseline_precision = precision_score(y_test, baseline_predictions, zero_division=0)
+            baseline_recall = recall_score(y_test, baseline_predictions, zero_division=0)
+            baseline_f1 = f1_score(y_test, baseline_predictions, zero_division=0)
+            baseline_conf_matrix = confusion_matrix(y_test, baseline_predictions)
+            
+            # Train model with preprocessing
             model = SimpleDTClassifier(settings)
-            model.fit(X_train, y_train, X_test, y_test)
+            model.fit(X_train, y_train)
             
             # Get predictions
-            predictions, _ = model.predict(X_test, y_test)
+            predictions, _ = model.predict(X_test)
             
             # Calculate metrics
             accuracy = accuracy_score(y_test, predictions)
@@ -324,15 +451,184 @@ class DataLoaderApp:
             f1 = f1_score(y_test, predictions, zero_division=0)
             conf_matrix = confusion_matrix(y_test, predictions)
             
-            # Show results
-            self.show_training_results(accuracy, precision, recall, f1, conf_matrix)
+            # Show comparative results
+            self.show_comparative_results(
+                # Baseline results
+                baseline_accuracy, baseline_precision, baseline_recall, baseline_f1, baseline_conf_matrix,
+                # Preprocessed results
+                accuracy, precision, recall, f1, conf_matrix,
+                preprocessing_info,
+                len(X_train_original), len(X_train)  # Original vs preprocessed data sizes
+            )
             
         except Exception as e:
             messagebox.showerror("Training Error", f"An error occurred during model training: {str(e)}")
             print(f"Training error: {e}")
     
+    def show_comparative_results(self, 
+                                baseline_acc, baseline_prec, baseline_rec, baseline_f1, baseline_cm,
+                                processed_acc, processed_prec, processed_rec, processed_f1, processed_cm,
+                                preprocessing_info, original_size, processed_size):
+        """Display comparative results between baseline and preprocessed models"""
+        results_window = tk.Toplevel(self.root)
+        results_window.title(f"Fairness Results - {self.dataset_name}")
+        results_window.geometry("800x600")
+        
+        # Title
+        tk.Label(
+            results_window, 
+            text="Bias Mitigation Results: Baseline vs Preprocessed",
+            font=("Arial", 16, "bold")
+        ).pack(pady=10)
+        
+        # Preprocessing info
+        tk.Label(
+            results_window,
+            text=f"Preprocessing Method: {preprocessing_info}",
+            font=("Arial", 12),
+            fg="blue"
+        ).pack(pady=5)
+        
+        # Data size info
+        tk.Label(
+            results_window,
+            text=f"Training Data: {original_size} → {processed_size} samples",
+            font=("Arial", 10),
+            fg="gray"
+        ).pack(pady=2)
+        
+        # Create two columns for comparison
+        comparison_frame = tk.Frame(results_window)
+        comparison_frame.pack(fill=tk.BOTH, expand=True, padx=20, pady=10)
+        
+        # Baseline results (left column)
+        baseline_frame = tk.LabelFrame(comparison_frame, text="Baseline (No Preprocessing)")
+        baseline_frame.pack(side=tk.LEFT, fill=tk.BOTH, expand=True, padx=5)
+        
+        baseline_metrics = [
+            ("Accuracy:", f"{baseline_acc:.4f}"),
+            ("Precision:", f"{baseline_prec:.4f}"),
+            ("Recall:", f"{baseline_rec:.4f}"),
+            ("F1 Score:", f"{baseline_f1:.4f}")
+        ]
+        
+        for i, (label, value) in enumerate(baseline_metrics):
+            tk.Label(baseline_frame, text=label, anchor=tk.W, width=12).grid(row=i, column=0, sticky=tk.W, padx=5, pady=3)
+            tk.Label(baseline_frame, text=value, anchor=tk.W).grid(row=i, column=1, sticky=tk.W, padx=5, pady=3)
+        
+        # Baseline confusion matrix
+        baseline_cm_frame = tk.Frame(baseline_frame)
+        baseline_cm_frame.grid(row=len(baseline_metrics), column=0, columnspan=2, pady=10)
+        
+        tk.Label(baseline_cm_frame, text="Confusion Matrix", font=("Arial", 10, "bold")).pack()
+        self._draw_confusion_matrix(baseline_cm_frame, baseline_cm, size=40)
+        
+        # Preprocessed results (right column)
+        processed_frame = tk.LabelFrame(comparison_frame, text="With Preprocessing")
+        processed_frame.pack(side=tk.RIGHT, fill=tk.BOTH, expand=True, padx=5)
+        
+        processed_metrics = [
+            ("Accuracy:", f"{processed_acc:.4f}"),
+            ("Precision:", f"{processed_prec:.4f}"),
+            ("Recall:", f"{processed_rec:.4f}"),
+            ("F1 Score:", f"{processed_f1:.4f}")
+        ]
+        
+        for i, (label, value) in enumerate(processed_metrics):
+            # Color-code improvements
+            improvement = ""
+            color = "black"
+            if i < len(baseline_metrics):
+                baseline_val = float(baseline_metrics[i][1])
+                processed_val = float(value)
+                if processed_val > baseline_val:
+                    improvement = " ↑"
+                    color = "green"
+                elif processed_val < baseline_val:
+                    improvement = " ↓"
+                    color = "red"
+                    
+            tk.Label(processed_frame, text=label, anchor=tk.W, width=12).grid(row=i, column=0, sticky=tk.W, padx=5, pady=3)
+            value_label = tk.Label(processed_frame, text=value + improvement, anchor=tk.W, fg=color)
+            value_label.grid(row=i, column=1, sticky=tk.W, padx=5, pady=3)
+        
+        # Preprocessed confusion matrix
+        processed_cm_frame = tk.Frame(processed_frame)
+        processed_cm_frame.grid(row=len(processed_metrics), column=0, columnspan=2, pady=10)
+        
+        tk.Label(processed_cm_frame, text="Confusion Matrix", font=("Arial", 10, "bold")).pack()
+        self._draw_confusion_matrix(processed_cm_frame, processed_cm, size=40)
+        
+        # Summary and fairness analysis
+        summary_frame = tk.LabelFrame(results_window, text="Fairness Analysis Summary")
+        summary_frame.pack(fill=tk.X, padx=20, pady=10)
+        
+        # Calculate improvements
+        acc_improvement = processed_acc - baseline_acc
+        f1_improvement = processed_f1 - baseline_f1
+        
+        summary_text = f"Accuracy Change: {acc_improvement:+.4f} | F1 Change: {f1_improvement:+.4f}"
+        
+        if processed_size != original_size:
+            summary_text += f" | Data Size Changed: {original_size} → {processed_size}"
+        
+        tk.Label(summary_frame, text=summary_text, font=("Arial", 10)).pack(pady=5)
+        
+        # Interpretation
+        if acc_improvement > 0.01:
+            interpretation = "✅ Preprocessing improved model performance"
+            color = "green"
+        elif acc_improvement < -0.01:
+            interpretation = "⚠️ Preprocessing reduced model performance - consider different method"
+            color = "orange"
+        else:
+            interpretation = "ℹ️ Preprocessing had minimal impact on performance"
+            color = "blue"
+            
+        tk.Label(summary_frame, text=interpretation, fg=color, font=("Arial", 10, "italic")).pack(pady=2)
+        
+        # Close button
+        tk.Button(
+            results_window, 
+            text="Close", 
+            command=results_window.destroy,
+            width=15,
+            bg="#f0f0f0"
+        ).pack(pady=10)
+    
+    def _draw_confusion_matrix(self, parent, conf_matrix, size=40):
+        """Helper method to draw a confusion matrix"""
+        cm_canvas = tk.Canvas(parent, width=size*3, height=size*3, bg="white")
+        cm_canvas.pack()
+        
+        margin = size//2
+        
+        # Draw the matrix
+        for i in range(2):
+            for j in range(2):
+                x = margin + j * size
+                y = margin + i * size
+                
+                # Color based on value (darker = higher)
+                val = conf_matrix[i, j]
+                max_val = np.max(conf_matrix)
+                intensity = int(255 - (val / max_val) * 100) if max_val > 0 else 255
+                color = f"#{intensity:02x}{intensity:02x}{intensity:02x}"
+                
+                # Draw cell
+                cm_canvas.create_rectangle(x, y, x + size, y + size, fill=color, outline="black")
+                
+                # Draw text
+                cm_canvas.create_text(x + size//2, y + size//2, text=str(val), font=("Arial", 8))
+        
+        # Labels
+        cm_canvas.create_text(margin + size//2, margin - 10, text="0", font=("Arial", 8))
+        cm_canvas.create_text(margin + size + size//2, margin - 10, text="1", font=("Arial", 8))
+        cm_canvas.create_text(margin - 10, margin + size//2, text="0", font=("Arial", 8))
+        cm_canvas.create_text(margin - 10, margin + size + size//2, text="1", font=("Arial", 8))
+    
     def show_training_results(self, accuracy, precision, recall, f1, conf_matrix):
-        """Display the training results in a new window"""
+        """Display the training results in a new window (legacy method)"""
         results_window = tk.Toplevel(self.root)
         results_window.title(f"Decision Tree Results - {self.dataset_name}")
         results_window.geometry("500x400")
