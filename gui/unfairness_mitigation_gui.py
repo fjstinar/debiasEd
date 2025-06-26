@@ -18,8 +18,16 @@ sys.path.append(os.path.join(project_root, "src"))
 # Now import the classes
 from src.predictors.decision_tree import DTClassifier
 
-# Import simplified preprocessing techniques
-from gui.preprocessing_simple import create_preprocessor
+# Import preprocessing techniques - try dynamic first, then fallback to simple
+try:
+    from gui.preprocessing_dynamic import get_available_preprocessing_methods, apply_preprocessing_method
+    USING_DYNAMIC_PREPROCESSING = True
+    print("✓ Using dynamic preprocessing system")
+except ImportError as e:
+    print(f"Dynamic preprocessing not available: {e}")
+    from gui.preprocessing_simple import create_preprocessor
+    USING_DYNAMIC_PREPROCESSING = False
+    print("✓ Using simple preprocessing system")
 
 class SimpleDTClassifier:
     """Simple decision tree classifier for the GUI"""
@@ -41,19 +49,47 @@ class PreprocessingWrapper:
     """Wrapper to handle preprocessing techniques in the GUI"""
     
     def __init__(self):
-        self.available_methods = [
-            'None (Baseline)',
-            'SMOTE (Oversampling)',
-            'Rebalancing', 
-            'Calders (Reweighting)'
-        ]
+        if USING_DYNAMIC_PREPROCESSING:
+            # Get available methods from dynamic system
+            methods_dict = get_available_preprocessing_methods()
+            self.available_methods = list(methods_dict.keys())
+            self.method_info = methods_dict
+        else:
+            # Fallback to simple system
+            self.available_methods = [
+                'none', 'smote', 'rebalance', 'calders'
+            ]
+            self.method_info = {
+                'none': {'name': 'None (Baseline)', 'description': 'No preprocessing - train on original data'},
+                'smote': {'name': 'SMOTE (Oversampling)', 'description': 'Synthetic Minority Oversampling Technique'},
+                'rebalance': {'name': 'Rebalancing', 'description': 'Rebalances demographic groups through sampling'},
+                'calders': {'name': 'Calders (Reweighting)', 'description': 'Reweights instances to achieve demographic independence'}
+            }
         
     def get_method_names(self):
-        return self.available_methods
+        return [self.method_info[key]['name'] for key in self.available_methods]
     
-    def create_preprocessor(self, method_name, settings=None):
-        """Create a preprocessor instance based on the method name"""
-        return create_preprocessor(method_name)
+    def get_method_descriptions(self):
+        return {self.method_info[key]['name']: self.method_info[key]['description'] 
+                for key in self.available_methods}
+    
+    def get_method_key_from_name(self, method_name):
+        """Convert display name back to method key"""
+        for key in self.available_methods:
+            if self.method_info[key]['name'] == method_name:
+                return key
+        return 'none'
+    
+    def apply_preprocessing(self, method_name, X_train, y_train, sensitive_attr):
+        """Apply preprocessing method"""
+        method_key = self.get_method_key_from_name(method_name)
+        
+        if USING_DYNAMIC_PREPROCESSING:
+            return apply_preprocessing_method(method_key, X_train, y_train, sensitive_attr)
+        else:
+            # Fallback to simple system
+            preprocessor = create_preprocessor(method_name)
+            return preprocessor.apply_preprocessing(X_train, y_train, sensitive_attr)
 
 class DataLoaderApp:
     def __init__(self, root):
@@ -112,7 +148,10 @@ class DataLoaderApp:
         tk.Label(preprocessing_frame, text="Select Preprocessing Method:").pack(anchor=tk.W, padx=5, pady=2)
         
         self.preprocessing_var = tk.StringVar()
-        self.preprocessing_var.set('None (Baseline)')  # Default value
+        # Set default to first available method name
+        method_names = self.preprocessing_wrapper.get_method_names()
+        default_method = method_names[0] if method_names else "No methods available"
+        self.preprocessing_var.set(default_method)
         
         self.preprocessing_combo = ttk.Combobox(
             preprocessing_frame,
@@ -123,17 +162,16 @@ class DataLoaderApp:
         )
         self.preprocessing_combo.pack(anchor=tk.W, padx=5, pady=2)
         
-        # Add method descriptions
-        method_descriptions = {
-            'None (Baseline)': 'No preprocessing - train on original data',
-            'SMOTE (Oversampling)': 'Synthetic Minority Oversampling Technique - creates synthetic examples',
-            'Rebalancing': 'Rebalances demographic groups through sampling with replacement',
-            'Calders (Reweighting)': 'Reweights instances to achieve demographic independence'
-        }
+        # Get method descriptions from wrapper
+        method_descriptions = self.preprocessing_wrapper.get_method_descriptions()
+        
+        # Set default description
+        default_method = list(method_descriptions.keys())[0] if method_descriptions else "No methods available"
+        default_description = method_descriptions.get(default_method, "No description available")
         
         self.description_label = tk.Label(
             preprocessing_frame, 
-            text=method_descriptions['None (Baseline)'],
+            text=default_description,
             wraplength=400,
             justify=tk.LEFT,
             fg="gray"
@@ -404,17 +442,18 @@ class DataLoaderApp:
             
             # Apply preprocessing if selected
             preprocessing_method = self.preprocessing_var.get()
-            preprocessor = self.preprocessing_wrapper.create_preprocessor(preprocessing_method)
             
             try:
-                # Apply preprocessing
-                X_train, y_train, demo_train = preprocessor.fit_transform(
-                    X_train.tolist(), y_train.tolist(), demo_train
+                # Extract sensitive attribute from demographics
+                sensitive_attr = np.array([demo['gender'] for demo in demo_train_original])
+                
+                # Apply preprocessing using the wrapper
+                X_train, y_train, sensitive_processed = self.preprocessing_wrapper.apply_preprocessing(
+                    preprocessing_method, X_train, y_train, sensitive_attr
                 )
                 
-                # Convert back to numpy arrays
-                X_train = np.array(X_train)
-                y_train = np.array(y_train)
+                # Update demographics with processed sensitive attributes
+                demo_train = [{'gender': val} for val in sensitive_processed]
                 
                 preprocessing_info = f"Applied {preprocessing_method}"
                 
