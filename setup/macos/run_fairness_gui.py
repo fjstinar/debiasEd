@@ -82,15 +82,15 @@ def setup_project_path():
     
     if os.path.exists(src_path):
         sys.path.insert(0, src_path)
-        print(f"✅  Added src path: {src_path}")
+        print(f"Added src path: {src_path}")
     else:
-        print(f"⚠️  Source path not found: {src_path}")
+        print(f"Source path not found: {src_path}")
     
     if os.path.exists(gui_path):
         sys.path.insert(0, gui_path)
-        print(f"✅ Added gui path: {gui_path}")
+        print(f"Added gui path: {gui_path}")
     else:
-        print(f"⚠️  GUI path not found: {gui_path}")
+        print(f"GUI path not found: {gui_path}")
     
     return project_root
 
@@ -100,7 +100,7 @@ def check_data_directory():
     data_path = os.path.join(project_root, "data")
     
     if not os.path.exists(data_path):
-        print(f"⚠️  Data directory not found: {data_path}")
+        print(f"Data directory not found: {data_path}")
         print("   The GUI will still work, but no datasets will be available.")
         return False
     
@@ -112,19 +112,19 @@ def check_data_directory():
             if os.path.isfile(potential_data_file):
                 datasets.append(folder)
     except Exception as e:
-        print(f"⚠️  Error scanning datasets: {e}")
+        print(f"Error scanning datasets: {e}")
     
     if datasets:
-        print(f"✅ Found {len(datasets)} datasets: {', '.join(datasets)}")
+        print(f"Found {len(datasets)} datasets: {', '.join(datasets)}")
     else:
-        print("⚠️  No datasets found. You may need to prepare data first.")
+        print("No datasets found. You may need to prepare data first.")
     
     return len(datasets) > 0
 
 def run_gui():
     """Launch the fairness GUI"""
     try:
-        print("\n🚀 Launching DebiasEd Fairness GUI...")
+        print("\nLaunching DebiasEd Fairness GUI...")
         from gui.unfairness_mitigation_gui import DataLoaderApp
         root = tk.Tk()
         root.withdraw()  # Hide initially
@@ -147,11 +147,11 @@ def run_gui():
         root.mainloop()
         
     except ImportError as e:
-        print(f"❌ Error importing GUI module: {e}")
+        print(f"Error importing GUI module: {e}")
         print("   Make sure the gui/unfairness_mitigation_gui.py file exists.")
         return False
     except Exception as e:
-        print(f"❌ Error running GUI: {e}")
+        print(f"Error running GUI: {e}")
         return False
     
     return True
@@ -187,7 +187,7 @@ def show_help():
 
 def main():
     print("=" * 60)
-    print("🎓⚖️ DebiasEd: Fairness in Educational Machine Learning ⚖️🎓")
+    print("DebiasEd: Fairness in Educational Machine Learning")
     print("=" * 60)
     
     # Handle command line arguments
@@ -201,7 +201,7 @@ def main():
             print(f"Unknown argument: {sys.argv[1]}")
             print("Use --help for usage information")
             return
-    print("\n🔍 Running system checks...")
+    print("\nRunning system checks...")
     
     if not check_python_version():
         return
@@ -228,15 +228,15 @@ def main():
     
     # Show status summary
     print("\n" + "=" * 40)
-    print("📋 SYSTEM STATUS SUMMARY")
+    print("SYSTEM STATUS SUMMARY")
     print("=" * 40)
-    print(f"✅ Python: {sys.version.split()[0]}")
-    print(f"✅ Required packages: Available")
-    print(f"{'✅' if has_data else '⚠️ '} Datasets: {'Available' if has_data else 'Limited'}")
-    print(f"📁 Project root: {project_root}")
+    print(f"Python: {sys.version.split()[0]}")
+    print(f"Required packages: Available")
+    print(f"{'Found' if has_data else 'Limited'} Datasets: {'Available' if has_data else 'Limited'}")
+    print(f"Project root: {project_root}")
     
     if not has_data:
-        print("\nℹ️  Note: Limited datasets available. The GUI will still work,")
+        print("\nNote: Limited datasets available. The GUI will still work,")
         print("   but you may need to prepare data files first.")
     
     # Launch GUI

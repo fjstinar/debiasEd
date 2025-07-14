@@ -126,7 +126,7 @@ class ZelayaSMOTEPreProcessor(PreProcessor):
         full_data = pd.DataFrame(x_train)
         full_data['demographic'] = sensitive_attribute
         full_data['label'] = y_train
-        corrected_df = self.fairCorrectSMOTE(full_data, 'demographic', 1, d=self._preprocessor_settings['d'])
+        corrected_df = self.fairCorrectSMOTE(full_data, 'demographic', 0, d=self._preprocessor_settings['d'])
         
         y_sampled = corrected_df['label']
         demo_sampled = corrected_df['demographic']

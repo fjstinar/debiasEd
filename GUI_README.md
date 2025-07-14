@@ -2,7 +2,7 @@
 
 A user-friendly graphical interface for bias detection and mitigation in educational machine learning.
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Option 1: One-Click Launch (Recommended)
 ```bash
@@ -10,10 +10,10 @@ python run_fairness_gui.py
 ```
 
 This script will:
-- ✅ Check your Python version
-- ✅ Install missing packages automatically
-- ✅ Verify data availability
-- 🚀 Launch the GUI
+- Check your Python version
+- Install missing packages automatically
+- Verify data availability
+- Launch the GUI
 
 ### Option 2: Manual Setup
 
@@ -27,22 +27,22 @@ This script will:
    python gui/unfairness_mitigation_gui.py
    ```
 
-## 📋 System Requirements
+## System Requirements
 
 - **Python 3.7+** (Python 3.8+ recommended)
 - **Operating System:** Windows, macOS, or Linux
 - **Memory:** 2GB RAM minimum
 - **Storage:** 500MB for datasets
 
-## 🎯 What the GUI Does
+## What the GUI Does
 
 ### Core Features:
-- 📊 **Load Educational Datasets** (EEDI, OULAD, Student Performance, etc.)
-- 🛠️ **Apply Preprocessing Techniques** for bias mitigation (SMOTE, Rebalancing, Reweighting)
-- 🤖 **Train ML Models** with and without preprocessing
-- 📈 **Compare Fairness Results** side-by-side (Baseline vs Preprocessed)
-- 🔍 **Explore Dataset Features** in an interactive table
-- ⚖️ **Analyze Performance Trade-offs** between accuracy and fairness
+- **Load Educational Datasets** (EEDI, OULAD, Student Performance, etc.)
+- **Apply Preprocessing Techniques** for bias mitigation (SMOTE, Rebalancing, Reweighting)
+- **Train ML Models** with and without preprocessing
+- **Compare Fairness Results** side-by-side (Baseline vs Preprocessed)
+- **Explore Dataset Features** in an interactive table
+- **Analyze Performance Trade-offs** between accuracy and fairness
 
 ### Supported Datasets:
 - **EEDI**: Educational assessment platform data
@@ -51,7 +51,7 @@ This script will:
 - **Student Performance**: Portuguese school data (Math & Language)
 - **Cyprus**: Higher education performance data
 
-## 🖥️ How to Use
+## How to Use
 
 1. **Launch the GUI:**
    ```bash
@@ -79,7 +79,7 @@ This script will:
    - Analyze data size changes from preprocessing
    - Check fairness analysis summary and recommendations
 
-## 🔧 Troubleshooting
+## Troubleshooting
 
 ### Common Issues:
 
@@ -102,7 +102,7 @@ This script will:
 python run_fairness_gui.py --check
 ```
 
-## 🆘 Getting Help
+## Getting Help
 
 **Command line help:**
 ```bash
@@ -115,7 +115,7 @@ python run_fairness_gui.py --help
 - Data verification
 - Error reporting
 
-## 🛠️ Preprocessing Methods Available
+## Preprocessing Methods Available
 
 ### **None (Baseline)**
 - No preprocessing applied
@@ -140,7 +140,7 @@ python run_fairness_gui.py --help
 - **Best for:** General bias mitigation without changing data
 - **Reference:** Calders et al. (2009)
 
-## 🔬 For Researchers
+## For Researchers
 
 This GUI provides a simplified interface to the full DebiasEd framework. For advanced features:
 
@@ -149,7 +149,7 @@ This GUI provides a simplified interface to the full DebiasEd framework. For adv
 - **Configuration:** Edit `src/configs/`
 - **Custom experiments:** Use the CLI tools
 
-## 📊 Sample Workflow
+## Sample Workflow
 
 ### **Basic Fairness Analysis:**
 1. **Start with EEDI dataset** (good test case)
@@ -167,4 +167,4 @@ This GUI provides a simplified interface to the full DebiasEd framework. For adv
 
 ---
 
-**Happy bias hunting!** 🎯 
+**Happy bias hunting!** 

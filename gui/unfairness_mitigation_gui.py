@@ -20,9 +20,9 @@ from src.predictors.decision_tree import DTClassifier
 
 # Import preprocessing techniques - try dynamic first, then fallback to simple
 try:
-    from gui.preprocessing_dynamic import get_available_preprocessing_methods, apply_preprocessing_method
+    from gui.preprocessing_dynamic import get_available_preprocessing_methods, apply_preprocessing_method, get_loading_stats
     USING_DYNAMIC_PREPROCESSING = True
-    print("✓ Using dynamic preprocessing system")
+    print("✓ Using dynamic preprocessing system with LAZY LOADING")
 except ImportError as e:
     print(f"Dynamic preprocessing not available: {e}")
     from gui.preprocessing_simple import create_preprocessor
@@ -50,10 +50,14 @@ class PreprocessingWrapper:
     
     def __init__(self):
         if USING_DYNAMIC_PREPROCESSING:
-            # Get available methods from dynamic system
+            # Get available methods from dynamic system (lazy loading)
             methods_dict = get_available_preprocessing_methods()
             self.available_methods = list(methods_dict.keys())
             self.method_info = methods_dict
+            
+            # Show lazy loading statistics
+            stats = get_loading_stats()
+            print(f"  📊 Lazy loading: {stats['configured']} methods configured, {stats['loaded']} loaded at startup")
         else:
             # Fallback to simple system
             self.available_methods = [
@@ -445,7 +449,13 @@ class DataLoaderApp:
             
             try:
                 # Extract sensitive attribute from demographics
-                sensitive_attr = np.array([demo['gender'] for demo in demo_train_original])
+                # Use the first available demographic attribute
+                available_demos = self.current_data.get('available_demographics', [])
+                if not available_demos:
+                    raise ValueError("No demographic attributes available")
+                
+                primary_demo = available_demos[0]  # Use first available demographic
+                sensitive_attr = np.array([demo[primary_demo] for demo in demo_train_original])
                 
                 # Apply preprocessing using the wrapper
                 X_train, y_train, sensitive_processed = self.preprocessing_wrapper.apply_preprocessing(
@@ -453,7 +463,7 @@ class DataLoaderApp:
                 )
                 
                 # Update demographics with processed sensitive attributes
-                demo_train = [{'gender': val} for val in sensitive_processed]
+                demo_train = [{primary_demo: val} for val in sensitive_processed]
                 
                 preprocessing_info = f"Applied {preprocessing_method}"
                 
@@ -615,13 +625,13 @@ class DataLoaderApp:
         
         # Interpretation
         if acc_improvement > 0.01:
-            interpretation = "✅ Preprocessing improved model performance"
+            interpretation = "Preprocessing improved model performance"
             color = "green"
         elif acc_improvement < -0.01:
-            interpretation = "⚠️ Preprocessing reduced model performance - consider different method"
+            interpretation = "Preprocessing reduced model performance - consider different method"
             color = "orange"
         else:
-            interpretation = "ℹ️ Preprocessing had minimal impact on performance"
+            interpretation = "Preprocessing had minimal impact on performance"
             color = "blue"
             
         tk.Label(summary_frame, text=interpretation, fg=color, font=("Arial", 10, "italic")).pack(pady=2)

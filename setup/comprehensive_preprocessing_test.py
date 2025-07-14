@@ -26,13 +26,13 @@ def test_all_preprocessing_methods():
     status = get_import_status()
     methods = get_available_preprocessing_methods()
     
-    print(f"\n📊 SUMMARY:")
+    print(f"\nSUMMARY:")
     print(f"   Total methods discovered: {len(methods) - 1}")  # -1 for 'none'
     print(f"   Successfully loaded: {len(status['successful'])}")
     print(f"   Failed to load: {len(status['failed'])}")
     
     # Create realistic educational dataset
-    print(f"\n📚 SAMPLE EDUCATIONAL DATASET:")
+    print(f"\nSAMPLE EDUCATIONAL DATASET:")
     np.random.seed(42)
     n_students = 100
     
@@ -59,7 +59,7 @@ def test_all_preprocessing_methods():
     print(f"   Pass/Fail distribution: {dict(zip(['Fail', 'Pass'], pass_counts[1]))}")
     
     # Test working methods
-    print(f"\n✅ SUCCESSFULLY WORKING METHODS:")
+    print(f"\nSUCCESSFULLY WORKING METHODS:")
     print("-" * 50)
     working_count = 0
     
@@ -91,7 +91,7 @@ def test_all_preprocessing_methods():
             print(f"   ❌ {methods[method_key]['name']}: {str(e)[:60]}...")
     
     # Show failed imports
-    print(f"\n❌ METHODS WITH DEPENDENCY ISSUES:")
+    print(f"\nMETHODS WITH DEPENDENCY ISSUES:")
     print("-" * 50)
     
     for i, (method_key, info) in enumerate(status['failed'].items(), 1):
@@ -100,7 +100,7 @@ def test_all_preprocessing_methods():
         print(f"       Issue: {error_summary}")
     
     # Show method categories
-    print(f"\n📋 AVAILABLE METHOD CATEGORIES:")
+    print(f"\nAVAILABLE METHOD CATEGORIES:")
     print("-" * 50)
     
     categories = {
@@ -125,7 +125,7 @@ def test_all_preprocessing_methods():
             if len(available_in_category) > 3:
                 print(f"     • ... and {len(available_in_category) - 3} more")
     
-    print(f"\n🎯 USAGE IN GUI:")
+    print(f"\nUSAGE IN GUI:")
     print("-" * 50)
     print("   The GUI will now show a dropdown with all working methods:")
     print(f"   • {working_count} preprocessing methods available")

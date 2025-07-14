@@ -48,11 +48,11 @@ def create_and_activate_env():
     env_path = os.path.abspath('debiased')
 
     try:
-        print(f"⚖️ Creating virtual environment debiased using python 3.11")
+        print(f"Creating virtual environment debiased using python 3.11")
         subprocess.run(["python3.11", "-m", "venv", env_path], check=True)
-        print("⚖️ Environment created ⚖️")
+        print("Environment created")
     except FileNotFoundError:
-        print(f"❌  python 3.11 not found. Make sure Python 3.11 is installed.")
+        print(f"python 3.11 not found. Make sure Python 3.11 is installed.")
         return
     except subprocess.CalledProcessError as e:
         print(f"❌ Failed to create environment: {e}")

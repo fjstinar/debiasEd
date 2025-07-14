@@ -1,6 +1,6 @@
 python setup/macos/install_env.py
 pip install --upgrade pip
-echo "🗡️ Activating 'debiased' virtual environment... 🗡️"
+echo "Activating 'debiased' virtual environment..."
 source debiased/bin/activate
 pip install -r setup/requirements.txt
 echo "Do you want to use your own dataset? (yes or no)"
@@ -22,7 +22,7 @@ while [[ "$own_dataset" == "yes" ]]; do
         read own_dataset
     fi
 done
-echo "📊 Data Import Done! 📊"
+echo "Data Import Done!"
 python setup/macos/run_fairness_gui.py
 
 
