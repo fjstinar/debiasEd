@@ -1,0 +1,109 @@
+
+=== DebiasED Jadouille GUI Usage Guide ===
+
+This guide walks you through using the GUI application for bias mitigation.
+
+STEP 1: Launch the GUI
+----------------------
+Option A: Use the startup script
+    python run_gui.py
+
+Option B: Launch directly
+    python debiased_jadouille_gui.py
+
+STEP 2: Load Data (Data Tab)
+-------------------------------
+1. Click "Load Sample Dataset" for a quick start
+   OR
+   Click "Load CSV File" to load your own data
+   
+2. Select your target column (e.g., "pass")
+3. Check boxes for sensitive attributes (e.g., "gender", "socioeconomic_status")
+4. Review the data preview table
+
+STEP 3: Apply Preprocessing - OPTIONAL (Preprocessing Tab)
+-------------------------------------------------------------
+*** THIS STEP IS COMPLETELY OPTIONAL - YOU CAN SKIP IT ENTIRELY! ***
+
+1. Choose a preprocessing method (if desired):
+   - Calders Reweighting (recommended for beginners)
+   - Zemel Learning Fair Representations
+   - Chakraborty Synthetic Data
+   - SMOTE Oversampling
+   - 11 other methods available
+
+2. Adjust method parameters if needed
+3. Click "Apply Preprocessing"
+4. Review the before/after/comparison visualizations
+
+*** You can proceed directly to Step 4 without doing any preprocessing! ***
+
+STEP 4: Choose Model & Bias Mitigation (Modeling Tab)
+--------------------------------------------------------
+1. Select a machine learning model:
+   - Logistic Regression (good for interpretability)
+   - Decision Tree (non-linear, interpretable)  
+   - Support Vector Machine (complex boundaries)
+   - Random Forest (ensemble method)
+
+2. Choose bias mitigation approach:
+   - None: Standard training (fastest, works with raw data)
+   - Use preprocessed data: Only if you applied preprocessing in Step 3
+   - Inprocessing: Fair training algorithm (works with raw data, needs sensitive attributes)
+
+3. If you chose inprocessing:
+   - Only compatible methods will be shown
+   - Configure fairness parameters (lambda, constraints, etc.)
+
+4. Configure model parameters
+5. Set the test split ratio (default: 20%)
+6. Click "Train Model"
+7. Wait for training to complete
+
+STEP 5: Evaluate Model (Evaluation Tab)
+------------------------------------------
+1. Select evaluation metrics:
+   ML Metrics: Accuracy, Precision, Recall, F1-Score, ROC-AUC
+   Fairness Metrics: Demographic Parity, Equal Opportunity, etc.
+
+2. Click "Evaluate Model"
+3. Review the metrics in the summary table
+4. Examine the visualizations:
+   - Confusion matrix
+   - ROC curve
+   - Feature importance
+   - Prediction distributions
+
+5. Click "Generate Report" for a comprehensive summary
+
+STEP 6: Export Results (Results Tab)
+---------------------------------------
+1. View model comparison table
+2. Export options:
+   - "Export Model": Save trained model (.pkl)
+   - "Export Results (CSV)": Save all metrics
+   - "Export Report (PDF)": Comprehensive report
+   
+3. Save/Load configurations for reproducibility
+
+TIPS FOR BEST RESULTS:
+----------------------
+- Start with the sample dataset to learn the interface
+- Try different preprocessing methods and compare results
+- Look for fairness-accuracy trade-offs in the evaluation
+- Save your configuration before experimenting
+- Use the execution log to track your progress
+
+INTERPRETING FAIRNESS METRICS:
+------------------------------
+- Demographic Parity: Equal positive prediction rates across groups
+- Equal Opportunity: Equal true positive rates across groups
+- Values closer to 0 indicate better fairness
+- Perfect fairness (0) may come at the cost of accuracy
+
+TROUBLESHOOTING:
+---------------
+- If GUI doesn't appear: Check tkinter installation
+- If imports fail: Install requirements.txt
+- If evaluation fails: Ensure preprocessing was applied first
+- For large datasets: Consider using a sample first

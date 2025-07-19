@@ -1,0 +1,1001 @@
+student_id,gender,ethnicity,age,socioeconomic_status,parent_education,previous_grade,study_hours,attendance,pass
+1,Male,White,22.1,Low,High School,69.8,3.5,0.91,0
+2,Female,Black,21.2,Low,High School,71.6,1.9,0.97,0
+3,Female,Asian,21.4,High,Master,79.3,1.5,0.94,0
+4,Male,Hispanic,18.0,Low,Bachelor,75.8,3.1,0.87,0
+5,Male,Hispanic,22.4,Low,Bachelor,69.1,0.7,0.62,0
+6,Male,Black,20.5,Medium,Master,73.3,13.1,0.91,1
+7,Male,Black,19.3,Medium,High School,75.8,10.1,0.94,1
+8,Female,Hispanic,20.3,Medium,High School,53.7,6.1,0.92,1
+9,Female,White,18.0,Low,High School,79.6,0.6,0.8,0
+10,Female,White,20.8,Medium,Bachelor,65.2,7.5,0.69,0
+11,Male,White,18.0,Low,High School,63.5,8.3,0.94,1
+12,Female,Other,18.0,Low,High School,58.1,7.3,0.89,1
+13,Female,Asian,18.0,High,PhD,57.1,0.6,0.99,0
+14,Male,White,22.2,Low,High School,61.4,5.2,0.66,1
+15,Male,Hispanic,18.7,Medium,High School,67.9,9.0,0.69,1
+16,Male,Asian,23.1,Medium,Bachelor,94.5,4.3,0.68,1
+17,Male,White,18.9,Medium,Bachelor,69.7,5.2,0.92,1
+18,Male,Black,18.0,High,PhD,76.8,3.1,0.67,1
+19,Male,Asian,18.0,Low,High School,79.0,3.8,0.63,1
+20,Male,White,22.5,Medium,Bachelor,76.3,0.2,1.0,1
+21,Female,Black,19.7,High,Master,74.2,5.1,0.61,1
+22,Male,White,18.9,Medium,Bachelor,63.0,0.4,0.93,0
+23,Male,Asian,20.3,High,Master,89.5,2.9,0.75,1
+24,Male,Other,21.0,Low,High School,93.1,1.7,0.94,1
+25,Male,Asian,22.2,Medium,High School,58.2,3.9,0.82,0
+26,Female,White,22.9,Low,High School,64.8,0.7,0.96,0
+27,Male,Asian,19.3,Medium,High School,72.2,5.9,0.97,1
+28,Male,Hispanic,18.0,High,Master,65.4,7.9,0.6,0
+29,Male,White,19.2,Low,Bachelor,80.1,0.9,0.63,0
+30,Male,Hispanic,20.5,Medium,Bachelor,67.7,0.6,0.7,1
+31,Female,White,18.1,Low,High School,96.7,0.8,0.87,0
+32,Male,Black,18.1,Medium,High School,86.9,10.5,0.96,1
+33,Male,White,20.7,Medium,Bachelor,77.1,3.8,0.78,1
+34,Female,White,19.9,High,Master,85.3,3.1,0.84,0
+35,Female,White,20.1,Medium,High School,86.1,0.6,0.68,0
+36,Female,Black,18.5,Medium,High School,69.4,5.2,0.92,0
+37,Male,White,19.5,Low,High School,66.8,10.1,0.99,0
+38,Male,Hispanic,18.2,Low,Bachelor,75.8,8.8,0.71,0
+39,Female,White,21.8,Low,High School,83.6,4.9,0.8,0
+40,Male,White,22.1,Low,High School,76.4,0.4,0.63,0
+41,Male,Black,18.0,High,PhD,59.2,0.6,0.82,0
+42,Male,Hispanic,18.1,Medium,High School,67.0,0.3,0.8,1
+43,Male,White,18.0,Medium,Bachelor,74.3,1.5,0.66,1
+44,Female,Black,18.7,Low,High School,74.2,0.7,0.78,0
+45,Male,Asian,19.8,High,PhD,94.7,1.5,0.73,0
+46,Female,Black,18.0,Medium,Bachelor,61.1,2.4,0.81,0
+47,Male,White,18.2,Low,High School,80.1,14.3,0.83,1
+48,Male,White,18.0,Medium,Bachelor,89.9,4.7,0.6,1
+49,Male,Asian,20.4,Medium,Bachelor,97.7,9.0,0.9,1
+50,Male,White,20.1,Low,High School,71.0,6.2,0.89,0
+51,Female,Asian,18.6,Medium,High School,79.9,0.6,0.75,0
+52,Female,Black,20.4,Medium,Bachelor,80.7,6.7,0.62,0
+53,Female,Asian,18.9,Low,High School,77.0,1.6,0.9,1
+54,Female,Hispanic,19.5,High,PhD,74.0,5.1,0.98,0
+55,Male,Other,23.3,High,PhD,79.4,2.1,0.7,1
+56,Female,White,22.7,Medium,Bachelor,50.0,20.0,0.73,0
+57,Male,Hispanic,18.0,Medium,High School,81.8,1.5,0.67,1
+58,Male,White,21.7,Medium,Bachelor,76.3,1.6,0.83,0
+59,Male,White,21.6,Medium,Bachelor,72.8,13.3,0.66,1
+60,Male,Black,18.0,Medium,Bachelor,95.5,0.1,0.74,1
+61,Male,Asian,21.6,Low,Bachelor,68.3,6.0,0.88,1
+62,Male,Other,23.1,Medium,High School,71.0,6.5,0.82,0
+63,Female,Hispanic,18.0,High,PhD,94.9,9.1,0.75,1
+64,Male,White,18.2,Medium,High School,66.7,18.3,0.77,1
+65,Male,White,22.0,Low,High School,69.5,18.6,0.82,1
+66,Male,Hispanic,20.5,Medium,Bachelor,73.5,0.3,0.6,1
+67,Male,White,21.1,Low,High School,83.4,8.6,0.63,1
+68,Female,White,20.7,Low,High School,77.1,5.2,0.95,0
+69,Male,White,20.8,Low,High School,62.1,5.2,0.63,1
+70,Female,White,18.0,Medium,High School,69.7,0.7,0.88,0
+71,Female,White,22.1,Medium,Bachelor,68.9,5.3,0.97,0
+72,Male,White,22.3,Medium,Bachelor,74.2,20.0,0.71,1
+73,Male,White,19.5,Low,Bachelor,79.3,12.1,0.75,1
+74,Female,White,19.9,High,PhD,79.2,2.9,0.83,1
+75,Female,Other,18.0,High,Master,57.2,0.2,0.95,0
+76,Female,White,21.0,High,Master,85.6,2.2,0.98,0
+77,Female,White,21.1,Low,High School,77.5,8.8,0.9,1
+78,Male,Black,19.9,Medium,High School,88.8,6.0,0.63,1
+79,Male,White,22.2,High,Master,79.4,3.1,0.87,1
+80,Male,Asian,19.3,Medium,Bachelor,86.0,0.3,0.76,1
+81,Female,Hispanic,21.1,Low,High School,79.7,2.8,0.79,1
+82,Female,White,18.0,Low,High School,88.5,3.2,0.62,1
+83,Male,White,20.0,Medium,Bachelor,80.2,13.2,0.68,1
+84,Male,Asian,19.7,High,Bachelor,74.0,5.1,0.92,1
+85,Male,Asian,20.5,Medium,High School,97.7,1.9,0.78,1
+86,Male,White,19.3,Medium,Bachelor,83.9,3.7,0.72,1
+87,Female,Black,19.7,Low,High School,80.7,0.3,0.75,0
+88,Female,White,21.7,Medium,Bachelor,62.2,18.0,0.94,0
+89,Female,Other,19.1,High,Bachelor,62.1,2.2,0.9,1
+90,Male,White,18.0,Medium,Master,77.9,3.2,0.71,1
+91,Male,Asian,23.5,Medium,High School,76.5,2.2,0.65,1
+92,Female,Black,22.8,High,Bachelor,68.9,5.7,0.7,1
+93,Female,Black,18.0,Low,Bachelor,76.4,5.4,0.97,0
+94,Male,Black,21.4,Medium,High School,90.9,6.3,0.83,1
+95,Female,White,19.0,Low,High School,82.0,1.6,0.81,0
+96,Male,White,20.5,Medium,High School,63.6,1.9,0.84,0
+97,Male,White,20.6,Medium,Bachelor,73.9,0.7,0.75,0
+98,Male,White,19.5,Medium,Master,67.0,5.3,0.92,1
+99,Male,Hispanic,18.4,Medium,High School,71.1,0.2,0.81,1
+100,Male,White,18.6,Medium,Bachelor,70.9,4.6,0.65,1
+101,Male,White,18.2,High,Bachelor,70.2,10.2,0.65,1
+102,Female,Other,18.3,Medium,Bachelor,62.4,11.1,0.81,1
+103,Male,Asian,19.9,Low,High School,73.7,3.0,0.97,1
+104,Male,Asian,18.6,Medium,High School,69.4,3.1,0.72,0
+105,Female,Other,21.4,Medium,High School,50.0,0.4,0.95,0
+106,Male,White,23.0,Medium,High School,95.5,5.6,0.91,0
+107,Male,White,18.8,High,PhD,85.9,8.6,0.7,0
+108,Female,Hispanic,20.5,High,Master,71.2,1.4,0.61,0
+109,Male,Black,21.0,Low,High School,75.2,2.7,0.64,0
+110,Male,White,20.9,High,Master,63.3,9.1,0.89,0
+111,Male,Hispanic,20.2,Low,High School,92.0,10.5,0.68,0
+112,Male,White,21.5,Low,High School,94.0,1.4,0.75,1
+113,Female,White,21.0,Low,Bachelor,76.6,4.0,0.8,0
+114,Female,Black,18.0,High,Master,85.2,1.1,0.89,1
+115,Female,Black,21.7,Medium,Bachelor,76.8,0.5,0.65,1
+116,Female,Black,21.8,Low,High School,61.6,12.1,0.76,0
+117,Female,White,18.5,Medium,High School,70.9,8.6,0.79,1
+118,Male,Asian,20.1,Medium,Bachelor,76.3,7.1,0.82,0
+119,Female,White,21.4,Low,High School,70.5,0.2,0.93,0
+120,Male,White,19.6,High,Master,72.8,9.3,0.67,1
+121,Female,Asian,22.1,High,PhD,74.1,2.9,0.92,1
+122,Female,Other,24.7,Medium,Bachelor,74.2,2.1,0.88,0
+123,Male,Asian,18.4,High,PhD,75.5,4.0,0.82,1
+124,Male,Hispanic,18.0,Medium,Bachelor,64.4,0.5,0.88,0
+125,Male,Black,20.6,High,Master,67.8,7.1,0.76,1
+126,Male,Black,21.4,Medium,Bachelor,62.2,4.4,0.66,1
+127,Female,White,19.5,Medium,High School,84.8,1.0,0.87,1
+128,Female,White,22.9,Low,Bachelor,53.9,1.0,0.81,0
+129,Male,White,18.0,High,Master,86.5,1.0,0.86,1
+130,Male,White,21.4,Medium,High School,88.9,0.3,0.74,0
+131,Male,Hispanic,18.8,Low,High School,72.0,4.4,0.96,0
+132,Male,White,23.4,Low,High School,50.0,9.2,0.83,0
+133,Male,White,24.0,Medium,High School,71.4,0.1,0.63,0
+134,Male,White,18.5,Medium,High School,74.4,0.3,0.78,1
+135,Female,Black,18.9,Medium,Bachelor,64.9,4.3,0.9,1
+136,Male,White,21.7,High,Master,69.8,8.6,0.92,1
+137,Male,Asian,19.2,Low,High School,90.3,2.0,0.8,1
+138,Female,White,19.9,Medium,High School,81.6,2.2,0.96,1
+139,Male,White,20.1,Low,High School,65.8,4.5,0.71,0
+140,Female,Black,18.0,High,Master,59.0,1.6,0.76,0
+141,Female,Hispanic,20.0,High,Master,71.7,0.1,0.96,1
+142,Male,White,18.6,Medium,High School,72.9,6.6,0.96,1
+143,Male,Black,19.0,Medium,High School,80.0,4.9,0.87,1
+144,Male,Black,22.9,Medium,Bachelor,69.6,4.3,0.94,1
+145,Male,White,18.0,Medium,High School,80.1,6.8,0.64,1
+146,Male,Asian,21.6,High,Bachelor,94.4,5.6,0.95,1
+147,Female,Hispanic,19.4,Medium,High School,83.2,1.2,0.73,1
+148,Male,Black,19.4,Medium,Bachelor,74.5,2.2,0.67,1
+149,Male,Asian,21.6,Medium,Bachelor,73.2,0.7,0.7,1
+150,Male,Asian,20.7,High,PhD,71.4,0.7,0.77,1
+151,Female,Hispanic,21.1,Medium,Bachelor,86.8,5.6,0.7,1
+152,Male,Hispanic,21.9,Low,High School,68.7,9.8,0.73,1
+153,Male,Black,19.3,Medium,Bachelor,75.5,16.4,0.65,1
+154,Male,Black,18.8,High,Master,75.5,4.9,0.72,0
+155,Female,Black,18.0,Low,High School,70.0,1.0,0.83,0
+156,Male,Hispanic,18.3,Low,High School,61.3,0.6,0.78,0
+157,Female,White,25.0,Low,High School,78.2,8.4,0.74,0
+158,Female,Asian,22.5,Medium,Bachelor,74.4,4.3,0.9,1
+159,Male,Asian,18.0,Medium,High School,80.0,4.8,0.96,1
+160,Female,White,18.0,Medium,High School,69.7,7.6,0.9,1
+161,Male,Hispanic,21.0,Medium,Bachelor,87.2,6.1,0.73,1
+162,Female,White,21.1,Medium,Bachelor,66.2,9.0,0.9,1
+163,Female,White,21.1,Medium,Bachelor,92.1,0.3,0.66,1
+164,Male,Hispanic,19.5,High,Master,57.5,6.9,0.65,0
+165,Male,White,19.7,Medium,Bachelor,79.3,9.5,0.74,0
+166,Female,Hispanic,20.7,High,Master,79.8,1.7,0.92,1
+167,Male,Hispanic,20.2,Medium,Bachelor,67.0,5.1,0.7,1
+168,Male,Black,18.0,Low,High School,79.2,1.9,0.63,0
+169,Male,White,19.5,Medium,Bachelor,87.8,15.8,0.65,1
+170,Male,White,18.3,Medium,Bachelor,52.8,0.2,0.94,0
+171,Female,Black,20.4,Medium,Bachelor,80.0,4.3,0.85,1
+172,Male,Other,25.0,Low,Bachelor,50.1,0.9,0.7,0
+173,Male,Black,20.7,Low,High School,65.3,6.2,0.82,0
+174,Male,White,19.4,High,Bachelor,91.3,1.0,0.81,1
+175,Female,Black,21.8,Low,Bachelor,69.2,1.3,0.86,0
+176,Male,Black,21.0,High,Master,63.3,3.4,0.69,0
+177,Female,Hispanic,20.8,Low,High School,73.0,12.3,0.95,0
+178,Male,White,21.2,Medium,Bachelor,95.7,1.2,0.72,1
+179,Female,Hispanic,24.1,Medium,High School,56.7,0.8,0.88,0
+180,Male,Black,18.0,Medium,Bachelor,64.5,7.1,0.61,1
+181,Male,Other,20.9,Medium,Bachelor,90.0,3.5,0.75,1
+182,Male,White,18.1,Low,High School,93.6,12.1,0.74,1
+183,Female,Black,21.1,Low,High School,74.0,0.8,0.82,0
+184,Female,Asian,18.2,Medium,Bachelor,62.6,5.2,0.63,0
+185,Male,White,19.2,Medium,High School,96.0,1.3,0.92,1
+186,Female,Asian,19.4,High,PhD,90.9,0.9,0.69,1
+187,Female,Black,22.0,High,Bachelor,81.8,5.8,0.87,1
+188,Male,White,21.8,Medium,Bachelor,66.9,4.5,0.92,1
+189,Male,White,18.0,Medium,Master,74.5,7.0,0.82,1
+190,Male,Hispanic,20.1,Medium,Bachelor,73.4,1.9,0.9,1
+191,Male,White,18.6,Low,High School,78.3,3.0,0.86,0
+192,Female,Black,18.0,High,Master,89.5,2.6,0.74,1
+193,Female,White,19.6,Medium,High School,83.8,20.0,0.92,1
+194,Female,Black,19.4,Medium,High School,64.2,1.7,0.72,0
+195,Male,White,24.9,Low,Bachelor,88.8,1.7,0.83,0
+196,Male,Asian,20.9,Medium,Bachelor,78.1,2.2,0.9,0
+197,Female,Other,18.0,Medium,Bachelor,81.9,4.2,0.75,1
+198,Female,Other,18.9,High,Master,89.7,1.5,0.72,1
+199,Female,Hispanic,22.0,Medium,High School,63.9,12.3,0.78,1
+200,Female,White,24.2,Medium,High School,74.6,1.5,0.93,1
+201,Female,Hispanic,18.0,High,Master,69.7,11.3,0.97,1
+202,Male,White,18.0,Low,High School,59.3,0.5,0.82,0
+203,Male,White,23.7,Medium,Bachelor,78.5,5.3,0.86,1
+204,Female,White,20.8,Low,Bachelor,100.0,11.9,0.96,1
+205,Female,White,18.3,Medium,High School,56.6,0.9,0.64,1
+206,Male,Hispanic,21.1,High,Master,74.7,17.3,0.69,1
+207,Male,Black,18.0,Low,High School,81.4,3.0,0.88,0
+208,Female,White,20.0,High,Master,76.2,14.6,0.93,1
+209,Male,White,20.7,Low,High School,73.9,5.6,0.94,0
+210,Male,Other,21.8,High,PhD,62.0,1.8,0.77,0
+211,Male,White,18.0,Medium,High School,77.3,1.0,0.64,1
+212,Female,White,20.2,High,PhD,67.4,1.8,0.78,0
+213,Female,White,18.1,Low,High School,53.1,0.5,0.69,0
+214,Male,Hispanic,20.5,High,PhD,86.9,0.8,0.72,1
+215,Female,Black,18.2,Medium,Bachelor,84.6,0.6,0.91,1
+216,Male,White,19.2,Medium,Master,75.5,2.7,0.63,0
+217,Male,White,18.0,High,Bachelor,77.3,7.9,0.93,1
+218,Female,Black,21.3,Low,High School,85.7,0.8,0.77,0
+219,Female,Black,21.7,High,PhD,77.2,0.7,0.84,0
+220,Female,White,19.5,Low,High School,84.0,5.2,0.64,1
+221,Female,Other,20.1,Medium,High School,72.0,1.1,0.73,0
+222,Male,White,18.0,Medium,Bachelor,88.1,0.5,0.64,1
+223,Male,White,19.4,Low,Bachelor,78.2,0.9,0.98,1
+224,Male,Asian,19.9,Low,High School,76.9,12.9,0.92,1
+225,Male,White,25.0,Low,High School,62.3,8.6,0.78,0
+226,Male,Black,18.0,Medium,High School,77.9,2.2,0.69,0
+227,Female,White,22.9,Medium,High School,66.7,5.3,0.97,1
+228,Male,White,22.0,Medium,Bachelor,68.6,3.9,0.74,1
+229,Female,Other,20.6,Low,High School,66.8,5.7,0.66,0
+230,Female,White,23.5,Low,High School,64.3,5.7,0.83,1
+231,Female,Asian,20.7,Medium,Master,96.2,5.0,0.98,1
+232,Male,White,20.8,Low,High School,88.3,1.5,0.6,1
+233,Male,White,19.9,High,Master,94.2,0.2,0.7,1
+234,Male,White,22.4,High,Bachelor,62.8,3.0,0.98,1
+235,Male,Black,22.2,Medium,Bachelor,75.7,11.1,0.67,1
+236,Female,White,18.7,Medium,High School,62.1,4.2,0.65,0
+237,Male,Asian,18.0,High,PhD,68.0,8.9,0.83,1
+238,Male,White,19.6,Low,High School,65.8,20.0,0.94,1
+239,Female,Other,18.4,Low,High School,87.4,0.9,0.79,0
+240,Male,White,19.9,Low,High School,71.0,5.9,1.0,1
+241,Female,Asian,22.5,Medium,High School,85.7,5.6,0.87,1
+242,Female,Hispanic,19.1,Low,High School,81.0,19.5,0.63,1
+243,Female,Hispanic,19.9,Medium,High School,98.0,20.0,1.0,1
+244,Male,Hispanic,20.1,High,Master,60.2,5.8,0.76,1
+245,Male,Hispanic,21.7,High,Bachelor,87.6,1.4,0.71,1
+246,Female,Black,18.0,Medium,Bachelor,86.5,8.0,0.82,1
+247,Male,White,18.8,Low,High School,65.3,0.6,0.72,0
+248,Female,White,20.4,High,Master,85.1,7.6,0.63,1
+249,Female,Asian,22.4,Medium,High School,78.4,12.1,0.6,0
+250,Female,Black,19.0,Low,High School,72.7,2.4,0.78,1
+251,Male,Hispanic,18.0,Low,High School,66.8,5.0,0.93,0
+252,Male,White,21.2,High,PhD,67.8,2.8,0.83,1
+253,Female,White,18.7,Medium,Bachelor,95.5,2.9,1.0,1
+254,Male,White,18.0,High,Bachelor,75.0,1.9,0.71,1
+255,Male,Black,18.8,High,Master,82.8,7.2,0.71,1
+256,Male,White,19.6,Medium,High School,67.1,13.8,0.66,1
+257,Female,White,18.8,Medium,High School,67.2,14.1,0.67,1
+258,Female,White,18.0,Medium,Bachelor,85.8,1.0,0.71,0
+259,Male,White,21.8,Medium,Bachelor,61.5,10.4,0.92,1
+260,Male,Black,22.5,Medium,Bachelor,70.8,6.7,0.96,0
+261,Female,White,21.3,Medium,High School,75.3,1.5,0.99,0
+262,Female,Hispanic,18.0,Medium,High School,76.1,0.3,0.69,0
+263,Male,White,19.6,High,Bachelor,73.2,1.6,0.95,1
+264,Male,White,20.0,Medium,Bachelor,79.0,12.2,0.73,1
+265,Female,White,21.2,Medium,Bachelor,81.9,5.0,0.65,1
+266,Female,White,21.3,Medium,Bachelor,82.3,6.4,0.95,1
+267,Female,White,18.5,Medium,High School,65.1,1.5,0.85,0
+268,Female,White,20.2,Medium,High School,72.2,6.4,0.67,1
+269,Male,Black,20.9,Low,High School,86.9,0.1,0.77,0
+270,Male,White,22.9,Medium,High School,83.9,2.4,0.71,1
+271,Female,Black,21.4,Low,High School,61.3,4.9,0.89,1
+272,Female,Asian,21.6,Medium,Bachelor,78.5,0.8,0.78,0
+273,Female,Hispanic,20.2,Medium,Bachelor,55.2,8.7,1.0,1
+274,Female,White,22.8,Medium,Bachelor,75.5,1.3,0.62,0
+275,Male,White,20.8,High,Master,94.0,5.3,0.74,1
+276,Male,White,18.3,Medium,High School,65.5,2.6,0.79,0
+277,Female,White,22.8,Medium,Bachelor,66.7,4.5,0.8,0
+278,Female,Other,21.4,Medium,High School,82.6,0.6,0.73,0
+279,Female,White,19.1,Medium,Master,59.6,0.1,0.89,0
+280,Female,White,19.0,Low,High School,68.7,12.0,0.95,0
+281,Female,Black,20.6,Low,High School,81.0,1.6,0.98,0
+282,Male,Hispanic,20.9,Medium,Master,68.7,8.6,0.92,1
+283,Male,Black,20.4,Medium,High School,72.6,20.0,0.94,1
+284,Male,White,20.6,Low,High School,82.4,1.2,0.82,0
+285,Male,White,23.4,Low,High School,79.2,1.5,0.93,0
+286,Male,Black,22.1,Low,High School,77.7,5.4,0.72,1
+287,Male,White,20.4,High,Master,71.6,16.8,0.76,1
+288,Male,White,21.9,Medium,Bachelor,78.7,12.4,0.73,1
+289,Male,White,18.0,Medium,Bachelor,73.8,3.5,0.79,1
+290,Male,White,20.8,Low,High School,79.6,7.9,0.71,1
+291,Male,White,23.6,Medium,Master,70.0,0.7,0.98,1
+292,Male,White,19.6,Low,High School,73.2,19.0,0.73,1
+293,Female,Black,18.3,Low,High School,65.1,16.7,0.64,0
+294,Male,Black,18.7,Medium,High School,74.6,0.9,0.81,1
+295,Male,Hispanic,18.0,Low,High School,66.9,1.8,0.62,1
+296,Male,White,18.4,Low,High School,63.9,0.5,0.64,0
+297,Female,White,19.3,Low,Bachelor,77.6,1.6,0.69,0
+298,Male,White,18.0,Low,High School,77.1,8.5,0.79,0
+299,Female,Black,20.0,Low,High School,82.8,2.4,0.77,1
+300,Male,Hispanic,21.8,Medium,High School,70.7,0.5,0.92,0
+301,Male,White,18.2,High,PhD,79.1,2.1,0.9,1
+302,Male,Asian,23.0,Medium,Bachelor,80.5,19.9,0.77,1
+303,Male,White,21.0,Medium,High School,79.4,5.0,0.73,1
+304,Female,Black,22.1,Low,High School,66.7,2.7,0.73,0
+305,Female,Hispanic,18.7,High,Bachelor,76.5,0.9,0.91,1
+306,Female,Asian,21.7,Medium,High School,78.6,20.0,0.62,1
+307,Male,Hispanic,18.0,Low,High School,75.1,8.6,0.61,0
+308,Male,Hispanic,21.8,Medium,Bachelor,54.1,1.7,0.92,1
+309,Female,White,20.3,Low,High School,76.6,0.4,0.79,0
+310,Male,Hispanic,21.1,Medium,Bachelor,97.1,0.3,0.65,1
+311,Male,White,18.0,Medium,High School,71.4,0.6,0.69,1
+312,Male,Asian,18.2,High,PhD,67.7,4.3,0.97,1
+313,Male,Black,21.2,Medium,Master,78.7,13.2,0.94,1
+314,Female,Hispanic,18.1,Medium,Bachelor,78.1,3.4,0.88,1
+315,Female,White,20.9,High,Master,86.9,9.3,0.79,1
+316,Female,Black,18.0,Low,High School,62.4,3.0,0.81,1
+317,Male,Black,21.7,Low,High School,82.3,6.2,0.99,1
+318,Male,Hispanic,18.0,Medium,Bachelor,80.9,6.6,0.99,1
+319,Male,White,21.1,Medium,Bachelor,73.6,1.0,0.69,0
+320,Male,White,21.3,Medium,Bachelor,78.4,2.2,0.92,1
+321,Male,White,18.6,High,PhD,85.3,5.1,0.68,1
+322,Female,White,21.2,Medium,High School,83.7,0.4,0.69,1
+323,Female,Asian,20.5,Medium,Bachelor,63.6,2.2,0.87,0
+324,Male,White,18.9,Medium,High School,83.2,3.8,0.76,1
+325,Female,Other,18.0,High,Bachelor,74.4,20.0,0.97,1
+326,Female,White,18.0,High,Master,75.7,3.2,0.64,1
+327,Male,White,20.7,High,Bachelor,75.7,8.5,0.8,1
+328,Female,Hispanic,18.0,Low,Bachelor,73.5,2.8,0.97,0
+329,Male,Black,20.2,Medium,High School,86.9,8.0,0.96,0
+330,Male,White,19.5,Low,High School,74.2,4.5,0.66,0
+331,Male,Black,21.4,Low,High School,63.8,10.9,0.75,0
+332,Female,Hispanic,19.4,Low,High School,71.1,2.6,0.85,0
+333,Male,White,19.3,Medium,High School,76.8,4.6,0.66,0
+334,Male,Other,21.5,Medium,Bachelor,87.3,5.0,0.99,1
+335,Male,Other,20.7,Low,High School,81.0,2.7,0.97,0
+336,Male,Black,20.6,Medium,Bachelor,66.5,0.8,0.67,0
+337,Female,White,20.9,Medium,High School,99.9,0.5,0.65,1
+338,Female,Black,18.0,Medium,Bachelor,77.6,0.1,0.63,1
+339,Male,White,21.5,Low,Bachelor,87.8,10.3,0.96,1
+340,Male,White,21.2,Medium,Bachelor,73.5,1.3,0.68,0
+341,Male,White,18.0,Medium,Bachelor,80.3,1.2,0.77,0
+342,Male,White,19.5,Low,High School,83.4,6.7,0.78,0
+343,Male,Asian,19.9,Low,High School,87.2,1.9,0.84,1
+344,Male,Hispanic,19.7,Medium,High School,85.6,3.5,0.63,1
+345,Male,Hispanic,20.7,High,Master,83.7,0.9,0.69,0
+346,Female,White,22.9,Medium,Bachelor,71.8,16.1,0.97,1
+347,Female,White,22.2,Medium,Bachelor,69.3,9.5,0.96,1
+348,Male,White,18.0,Medium,High School,78.3,10.0,0.91,1
+349,Male,Other,21.2,Medium,Bachelor,84.3,2.6,0.61,1
+350,Female,White,22.7,Low,High School,72.8,7.2,0.73,0
+351,Male,Asian,20.8,Medium,Bachelor,85.7,0.8,0.85,1
+352,Female,Black,22.2,High,Bachelor,89.5,0.0,0.71,1
+353,Female,White,24.0,Medium,High School,65.8,0.1,0.96,0
+354,Male,Hispanic,22.0,High,Bachelor,66.6,4.4,0.85,1
+355,Male,White,20.5,Medium,High School,73.6,3.0,0.63,1
+356,Female,Asian,22.1,Low,High School,78.1,3.6,0.96,1
+357,Male,Asian,20.3,High,Bachelor,69.8,0.0,0.98,0
+358,Male,White,20.0,Low,High School,88.5,2.7,0.63,0
+359,Female,White,19.3,Medium,High School,79.2,6.3,0.81,1
+360,Male,Black,23.1,Low,Bachelor,75.4,2.9,0.72,1
+361,Male,Asian,18.4,Low,High School,60.6,6.6,0.76,0
+362,Female,White,23.1,Medium,High School,61.8,1.3,0.67,0
+363,Male,Black,21.0,Low,High School,77.8,8.4,0.83,0
+364,Male,Black,18.0,Medium,High School,53.7,4.4,0.98,1
+365,Female,Hispanic,20.7,Medium,Bachelor,85.1,1.2,0.8,0
+366,Male,White,18.0,Low,High School,73.4,1.4,0.63,0
+367,Female,Hispanic,21.3,Low,Bachelor,100.0,4.9,0.85,0
+368,Female,Asian,21.8,Medium,Bachelor,98.1,8.9,0.74,1
+369,Male,White,18.8,Medium,Bachelor,73.2,2.7,0.94,0
+370,Male,White,20.2,Medium,Bachelor,73.9,1.5,0.77,1
+371,Male,Other,23.9,Medium,Bachelor,85.0,10.1,0.68,1
+372,Male,White,19.0,High,Master,92.0,5.5,0.68,1
+373,Male,Asian,18.0,Medium,Bachelor,58.6,3.0,0.91,1
+374,Female,White,23.0,Medium,High School,57.1,3.3,0.71,0
+375,Male,White,23.9,Medium,High School,68.8,1.1,0.91,1
+376,Male,Asian,20.0,Low,High School,80.8,4.9,0.68,1
+377,Female,White,22.0,Medium,Bachelor,80.0,2.2,0.73,1
+378,Male,Black,22.7,Medium,Bachelor,85.7,20.0,0.79,1
+379,Female,White,18.5,Medium,High School,63.0,3.3,0.98,1
+380,Male,Black,19.0,Medium,Bachelor,51.8,3.3,0.97,0
+381,Male,White,22.5,High,Bachelor,83.6,4.2,0.68,1
+382,Female,White,23.4,High,Master,66.7,12.4,0.74,1
+383,Female,Other,21.1,High,Master,54.8,8.1,0.66,0
+384,Female,White,18.2,Medium,Bachelor,76.5,3.0,0.8,1
+385,Female,Black,24.0,Medium,High School,82.9,6.3,0.78,1
+386,Female,White,18.9,Medium,Bachelor,73.8,4.4,0.96,0
+387,Male,Hispanic,19.3,Medium,Bachelor,70.4,3.4,0.97,0
+388,Male,White,20.7,Medium,Bachelor,73.4,1.1,0.75,1
+389,Female,Other,23.1,Medium,Bachelor,71.3,3.1,0.8,0
+390,Female,White,21.7,Medium,Bachelor,61.5,1.4,0.96,0
+391,Female,White,20.8,Medium,Bachelor,67.9,12.3,0.92,1
+392,Male,White,20.9,Low,High School,80.2,2.0,0.6,1
+393,Male,White,20.1,Medium,High School,78.2,15.2,0.73,1
+394,Female,Black,21.1,Low,Bachelor,76.7,3.8,0.77,1
+395,Male,White,18.0,High,Master,65.0,5.0,0.69,1
+396,Female,Hispanic,19.4,Medium,High School,73.2,3.9,0.68,1
+397,Female,White,20.5,Low,High School,53.2,0.7,0.62,0
+398,Male,White,18.0,Low,Bachelor,76.8,2.4,0.86,1
+399,Female,Black,20.8,Medium,High School,89.3,0.5,0.71,0
+400,Female,Hispanic,19.6,Medium,Master,60.3,4.9,0.62,0
+401,Male,White,23.5,Medium,High School,69.1,3.0,0.69,0
+402,Female,White,23.1,Low,High School,78.3,7.5,0.92,1
+403,Male,White,19.1,Medium,High School,87.5,1.2,0.94,1
+404,Female,Hispanic,19.7,Medium,Bachelor,70.5,0.9,0.79,1
+405,Male,Black,19.9,Medium,Bachelor,68.1,2.6,0.77,0
+406,Female,White,19.1,Medium,Bachelor,55.3,13.1,0.99,0
+407,Male,Hispanic,20.4,Medium,Bachelor,76.0,6.2,0.68,0
+408,Male,Hispanic,18.5,Low,High School,95.4,2.7,0.69,1
+409,Female,Black,18.0,High,Bachelor,77.8,3.6,0.72,1
+410,Male,Asian,21.2,Medium,High School,74.8,0.4,0.67,1
+411,Male,White,21.3,Medium,Bachelor,78.2,20.0,0.75,1
+412,Female,White,18.4,Low,High School,74.9,5.5,0.96,1
+413,Female,White,21.8,Medium,High School,66.9,1.7,0.85,0
+414,Male,White,18.7,Low,High School,83.2,4.4,0.76,0
+415,Female,Black,20.5,Medium,Bachelor,77.3,0.6,0.97,1
+416,Male,Asian,21.6,High,PhD,75.2,16.9,0.62,1
+417,Male,White,19.9,Medium,High School,65.2,1.0,0.68,0
+418,Male,White,20.9,Low,High School,88.0,5.2,0.83,0
+419,Female,White,19.0,Low,Bachelor,81.6,1.4,0.85,0
+420,Female,Asian,19.6,Medium,High School,69.5,6.3,0.62,1
+421,Female,White,19.6,Low,Bachelor,85.0,7.5,0.76,1
+422,Female,Black,18.5,Low,Bachelor,70.0,5.6,0.86,0
+423,Male,White,19.6,Medium,Bachelor,67.2,4.8,0.88,1
+424,Male,White,18.0,Medium,High School,67.4,11.1,0.86,0
+425,Male,Other,19.0,Low,Bachelor,57.3,0.4,0.73,0
+426,Male,Other,19.4,High,PhD,79.7,2.0,0.64,1
+427,Male,White,19.5,Low,High School,56.7,1.4,0.77,0
+428,Female,Other,19.5,High,Master,62.7,20.0,0.65,1
+429,Male,Black,19.9,Medium,High School,54.2,2.5,0.98,0
+430,Male,Asian,21.0,High,Bachelor,74.1,6.6,0.79,1
+431,Male,White,21.7,Medium,Bachelor,73.5,5.8,0.73,1
+432,Female,Black,18.7,High,Master,71.7,1.2,0.91,0
+433,Female,White,18.0,High,Master,64.6,1.4,0.8,0
+434,Male,Black,18.0,Low,High School,63.3,1.7,0.72,0
+435,Male,White,19.0,High,Master,79.6,2.6,0.92,1
+436,Female,White,19.3,Medium,Bachelor,69.5,1.3,0.95,0
+437,Male,White,18.5,Medium,Master,78.2,0.1,0.87,0
+438,Female,Hispanic,18.0,Medium,High School,66.1,10.6,0.62,0
+439,Female,White,19.1,Medium,High School,76.8,16.8,0.83,1
+440,Male,Black,20.4,Low,High School,88.0,2.1,0.91,0
+441,Male,Other,21.2,Medium,Bachelor,80.9,2.1,0.65,0
+442,Female,White,18.9,Medium,Bachelor,70.9,0.0,0.69,1
+443,Male,Black,19.2,Medium,Master,77.6,5.7,0.95,1
+444,Male,White,18.1,High,Bachelor,72.6,8.7,0.61,1
+445,Female,Asian,19.9,Medium,Master,75.1,0.8,0.9,0
+446,Female,White,18.3,Medium,High School,71.7,0.9,0.79,1
+447,Female,Black,21.1,Low,High School,73.4,7.8,0.78,0
+448,Female,Hispanic,18.0,Low,High School,77.1,4.8,0.6,0
+449,Male,Asian,19.3,Low,Bachelor,65.1,0.2,0.93,0
+450,Male,Black,20.6,Medium,Bachelor,64.8,4.9,0.74,1
+451,Female,White,20.4,Low,High School,61.1,1.8,0.82,0
+452,Male,Black,25.0,High,PhD,59.0,2.3,0.87,0
+453,Male,Asian,20.7,Medium,High School,62.8,7.3,0.88,1
+454,Female,Black,18.0,Medium,High School,76.6,8.3,0.98,0
+455,Male,White,19.8,Medium,Bachelor,66.1,2.6,0.81,1
+456,Male,Asian,18.0,Low,High School,80.1,14.7,0.76,1
+457,Male,Black,19.8,Medium,High School,75.3,2.6,0.98,1
+458,Male,Black,18.3,Medium,Bachelor,55.3,7.4,0.86,1
+459,Male,White,21.8,Medium,Bachelor,81.5,3.3,0.72,1
+460,Male,Black,18.9,Medium,High School,83.1,11.4,0.65,1
+461,Male,White,19.8,High,Bachelor,65.1,11.9,0.94,1
+462,Female,Black,18.7,High,Bachelor,79.2,0.5,0.74,0
+463,Female,White,23.5,Medium,Bachelor,66.4,13.8,0.86,1
+464,Male,Black,19.4,Medium,Bachelor,76.0,8.7,0.79,1
+465,Female,Other,23.7,Medium,Master,62.4,7.8,0.68,0
+466,Male,White,21.6,Low,High School,57.1,1.1,0.84,0
+467,Male,Other,21.0,Medium,High School,71.2,8.2,0.62,1
+468,Female,White,20.7,Low,Bachelor,73.8,9.5,0.77,0
+469,Male,Asian,20.8,Medium,Bachelor,71.0,1.7,0.82,1
+470,Female,Hispanic,18.0,Medium,High School,63.2,15.2,0.77,1
+471,Male,Black,19.4,Low,Bachelor,71.0,0.3,0.9,0
+472,Female,Hispanic,21.7,High,PhD,77.7,0.8,0.93,0
+473,Male,Asian,19.9,High,PhD,74.6,3.9,0.91,1
+474,Female,White,18.0,Medium,Bachelor,76.8,4.3,0.62,0
+475,Male,White,19.9,Medium,High School,68.3,5.2,0.68,0
+476,Female,Black,23.4,High,Bachelor,86.7,0.1,0.81,1
+477,Male,Hispanic,22.5,Low,High School,63.2,16.1,0.97,1
+478,Male,Hispanic,19.9,Medium,High School,79.9,0.2,0.93,1
+479,Female,Hispanic,21.9,Low,High School,86.8,0.8,0.94,0
+480,Male,White,19.3,Medium,Bachelor,79.8,0.1,0.72,0
+481,Female,Hispanic,18.0,Low,High School,73.0,4.2,0.77,0
+482,Female,White,18.2,High,Master,69.7,13.5,0.79,0
+483,Male,Black,23.1,High,PhD,85.4,5.5,0.66,1
+484,Female,White,19.5,Low,Bachelor,60.8,8.6,0.61,0
+485,Male,White,19.5,Medium,Bachelor,65.3,0.1,0.98,1
+486,Female,White,19.4,High,Bachelor,71.0,3.9,0.7,1
+487,Male,White,23.8,Medium,High School,87.4,3.1,0.7,1
+488,Male,Black,23.3,High,Master,78.8,3.5,0.63,1
+489,Female,White,24.4,Medium,High School,65.3,0.4,0.97,0
+490,Female,White,19.7,Medium,High School,71.9,5.8,0.83,1
+491,Male,White,20.6,Low,High School,68.9,3.5,0.87,0
+492,Female,White,18.0,Low,High School,67.9,7.2,0.96,1
+493,Male,White,23.0,Medium,Master,84.8,3.3,0.74,1
+494,Male,White,18.0,Medium,High School,61.3,0.8,0.85,0
+495,Male,Black,20.4,Medium,Bachelor,91.1,5.2,0.62,0
+496,Male,Black,18.0,Medium,Bachelor,83.3,0.9,0.67,1
+497,Male,Black,18.8,Medium,High School,85.9,10.3,0.93,1
+498,Male,White,18.3,High,PhD,70.4,4.7,0.91,1
+499,Female,White,18.8,High,Master,73.5,0.9,0.74,0
+500,Female,Asian,18.9,Medium,High School,60.7,16.4,0.75,1
+501,Female,Black,18.9,High,PhD,69.8,3.7,0.81,1
+502,Male,White,21.7,Medium,High School,79.9,0.4,0.6,1
+503,Male,White,18.0,Medium,Bachelor,88.0,4.9,0.7,1
+504,Female,White,20.4,High,Bachelor,63.9,1.5,0.68,1
+505,Female,White,22.4,Low,Bachelor,71.3,8.1,0.7,0
+506,Male,White,19.0,Low,High School,73.5,8.5,0.92,1
+507,Female,Black,18.6,High,Master,61.0,19.3,0.71,1
+508,Female,Black,19.5,Medium,High School,80.9,3.5,0.68,1
+509,Female,Black,22.4,High,Master,67.8,3.0,0.8,1
+510,Female,Hispanic,20.4,High,PhD,73.0,7.0,0.95,1
+511,Female,Hispanic,18.9,Low,High School,70.5,0.7,0.7,0
+512,Male,Hispanic,21.0,High,Master,67.1,4.0,0.63,0
+513,Female,Other,18.0,Medium,Bachelor,74.9,4.0,0.74,1
+514,Female,White,21.4,Medium,Bachelor,72.8,0.5,0.9,1
+515,Male,White,20.8,Medium,Bachelor,71.3,2.7,0.82,1
+516,Male,White,19.4,High,PhD,67.7,9.6,0.93,1
+517,Male,Black,18.3,Low,Bachelor,78.2,9.7,0.98,1
+518,Female,Asian,18.2,Medium,Bachelor,91.5,0.5,0.92,1
+519,Female,White,21.1,Medium,High School,76.4,0.5,0.84,1
+520,Male,Asian,22.5,Medium,Bachelor,85.0,1.5,0.8,1
+521,Male,White,18.7,Medium,Bachelor,61.1,10.4,0.62,1
+522,Male,Asian,20.9,Low,High School,76.6,0.7,0.99,0
+523,Female,White,18.0,Low,High School,64.0,6.4,0.75,1
+524,Female,White,18.8,Medium,Bachelor,60.2,0.5,0.66,0
+525,Female,White,19.9,High,Master,67.6,4.9,0.87,1
+526,Male,White,18.2,Low,High School,86.9,2.2,0.71,0
+527,Male,White,18.1,Low,High School,84.5,7.8,0.83,1
+528,Male,White,18.7,High,Bachelor,77.4,1.3,0.83,0
+529,Male,Hispanic,20.6,Low,High School,59.7,5.1,0.78,0
+530,Female,Black,19.6,High,Bachelor,73.0,1.3,0.93,0
+531,Female,White,18.0,Medium,High School,78.0,6.3,0.71,1
+532,Female,Black,18.0,High,PhD,76.8,10.3,0.78,0
+533,Female,Hispanic,18.8,Low,High School,56.6,0.7,0.82,0
+534,Male,White,20.9,Low,Bachelor,66.1,10.1,0.87,1
+535,Female,White,18.0,Medium,Master,74.4,4.5,0.91,1
+536,Female,White,19.0,High,Bachelor,80.4,0.7,0.76,1
+537,Female,White,18.9,Medium,High School,53.0,2.8,0.86,1
+538,Male,Black,22.8,Low,High School,73.4,0.9,0.66,0
+539,Male,White,19.2,Medium,Bachelor,76.4,6.0,0.97,1
+540,Male,Black,20.8,Medium,High School,83.5,7.1,0.75,1
+541,Female,Hispanic,20.3,Medium,Bachelor,81.9,0.6,0.89,1
+542,Female,White,18.0,Medium,High School,80.8,3.5,0.61,0
+543,Male,Black,21.5,High,PhD,67.0,8.4,0.68,0
+544,Female,White,20.4,Medium,High School,55.9,13.8,0.79,1
+545,Female,Other,21.0,Low,High School,71.1,3.6,0.95,1
+546,Male,White,25.0,Medium,High School,85.0,15.0,0.81,1
+547,Male,Hispanic,18.0,Low,Bachelor,88.9,3.8,0.97,1
+548,Female,Black,23.4,Medium,Bachelor,82.1,2.5,0.79,1
+549,Male,White,19.4,Medium,Bachelor,79.3,9.4,0.8,1
+550,Female,Black,20.6,Low,High School,78.8,3.4,0.65,1
+551,Male,Other,19.9,Medium,High School,69.4,3.2,0.92,0
+552,Female,Black,19.2,Low,High School,73.7,3.4,0.7,0
+553,Male,Hispanic,18.9,High,Master,91.7,9.4,0.96,1
+554,Male,Asian,20.7,High,Master,65.6,8.9,0.96,1
+555,Female,White,18.0,Low,High School,91.1,2.6,0.98,1
+556,Male,White,21.5,High,Bachelor,71.8,2.0,0.81,0
+557,Male,Black,19.2,Medium,Master,88.3,3.4,0.87,1
+558,Male,White,18.0,Low,High School,60.9,4.3,0.91,0
+559,Female,Hispanic,19.1,Low,Bachelor,80.9,1.4,0.65,0
+560,Female,Asian,22.5,Medium,High School,67.6,7.9,0.84,1
+561,Female,White,18.9,Medium,Bachelor,60.8,3.3,0.61,0
+562,Male,White,20.7,Medium,High School,77.2,2.0,0.8,1
+563,Male,Hispanic,18.5,Low,High School,85.1,0.6,0.66,0
+564,Male,White,21.5,Low,High School,66.6,1.4,0.67,0
+565,Male,Hispanic,21.4,Medium,Bachelor,60.0,14.9,0.75,0
+566,Male,White,23.7,Low,High School,74.1,1.8,0.77,1
+567,Male,Black,19.6,Low,High School,74.1,0.9,0.85,0
+568,Male,White,21.3,Low,High School,80.5,3.1,0.63,0
+569,Female,Black,20.2,High,PhD,84.5,1.8,0.8,1
+570,Male,White,22.6,High,Bachelor,74.4,0.2,0.67,0
+571,Male,Black,18.6,Medium,Bachelor,93.6,2.0,0.83,1
+572,Female,White,21.5,High,Master,77.2,3.9,0.85,0
+573,Male,Hispanic,19.6,Medium,High School,71.5,4.0,0.82,0
+574,Female,Asian,19.9,Medium,Bachelor,58.9,2.2,0.9,0
+575,Female,White,20.2,Low,High School,72.4,3.0,0.73,0
+576,Female,White,20.5,Medium,High School,71.6,16.8,0.91,1
+577,Male,White,19.8,High,Bachelor,84.6,2.4,0.77,1
+578,Female,Black,20.4,Medium,High School,79.6,1.5,0.79,0
+579,Male,Black,23.2,Medium,Bachelor,63.2,1.4,0.86,1
+580,Male,Black,22.0,Medium,Bachelor,76.7,3.1,0.61,1
+581,Male,White,21.7,Low,Bachelor,81.7,7.1,0.86,1
+582,Female,White,19.1,High,PhD,90.3,1.2,0.85,0
+583,Male,Black,18.2,Medium,High School,83.9,6.2,0.72,1
+584,Male,White,21.9,Medium,Bachelor,82.6,0.1,0.63,1
+585,Female,Other,21.8,Medium,Bachelor,75.6,2.7,0.64,0
+586,Male,White,22.9,Medium,Bachelor,78.9,7.5,0.97,1
+587,Male,Black,18.8,Low,High School,87.5,2.1,0.88,1
+588,Male,White,19.5,Medium,Master,61.7,4.1,0.65,0
+589,Male,White,18.0,Low,High School,71.5,1.1,0.74,0
+590,Male,Hispanic,19.2,Medium,Master,67.3,6.8,0.84,0
+591,Male,Black,22.0,High,Bachelor,78.8,0.3,0.93,1
+592,Female,Other,19.1,High,Bachelor,87.3,9.6,0.62,1
+593,Male,White,21.3,Medium,Bachelor,69.0,1.1,0.69,0
+594,Male,White,19.6,Medium,Bachelor,51.1,10.4,0.96,1
+595,Female,Hispanic,20.6,Low,Bachelor,70.9,2.2,0.6,0
+596,Male,Black,18.0,Medium,Master,84.1,6.4,0.68,1
+597,Female,White,20.2,Low,High School,80.4,1.9,0.98,0
+598,Male,White,18.0,Medium,High School,79.3,11.8,0.85,1
+599,Male,White,19.6,Low,Bachelor,72.2,0.7,0.7,0
+600,Male,Asian,18.0,Low,High School,62.2,1.0,0.63,0
+601,Male,White,22.4,Medium,High School,80.2,3.4,0.61,1
+602,Male,White,21.6,Low,High School,66.7,0.4,0.7,1
+603,Male,White,20.9,Medium,Bachelor,96.8,1.1,0.95,1
+604,Male,White,23.0,Medium,Bachelor,80.7,14.4,0.77,1
+605,Male,White,18.1,Low,High School,69.2,18.8,0.89,0
+606,Male,Black,23.5,Medium,High School,68.9,2.4,0.97,1
+607,Male,White,21.9,Low,Bachelor,74.1,12.8,0.76,1
+608,Male,Hispanic,19.5,Low,High School,72.6,3.9,0.68,0
+609,Male,White,22.3,Medium,Bachelor,86.2,1.6,0.81,1
+610,Female,Black,18.0,Low,High School,76.9,6.1,0.96,0
+611,Male,Asian,18.4,High,PhD,67.7,5.4,0.92,1
+612,Female,Black,18.8,Low,High School,93.9,20.0,0.63,0
+613,Female,Black,18.9,Low,High School,75.5,1.5,0.88,1
+614,Male,White,18.0,Medium,Bachelor,82.7,5.6,0.83,0
+615,Female,White,22.4,Medium,High School,68.9,0.3,0.96,1
+616,Female,Black,19.5,Low,High School,78.6,0.6,0.65,0
+617,Male,Other,20.7,Medium,High School,78.1,0.0,0.81,1
+618,Male,Black,18.9,Low,High School,56.1,20.0,0.95,0
+619,Female,Black,18.0,High,Bachelor,95.2,8.1,0.76,1
+620,Female,Hispanic,20.5,Medium,High School,87.9,7.7,0.79,0
+621,Male,White,18.0,Medium,High School,71.0,3.6,0.63,1
+622,Male,White,19.9,High,PhD,64.0,1.8,0.71,1
+623,Male,Black,18.0,Medium,Bachelor,78.5,0.8,0.73,0
+624,Male,Other,24.0,High,Bachelor,75.9,1.7,0.98,0
+625,Female,White,21.8,Medium,Bachelor,78.6,2.4,0.71,1
+626,Male,Black,20.2,High,Master,76.9,7.1,0.78,1
+627,Male,White,22.5,Low,Bachelor,80.1,3.9,0.87,1
+628,Female,Black,18.3,Medium,High School,89.5,0.4,0.66,1
+629,Male,White,21.1,Medium,Bachelor,80.7,0.1,0.79,0
+630,Male,White,20.4,Medium,High School,64.5,0.5,0.9,1
+631,Female,Hispanic,20.5,Medium,High School,88.6,2.6,0.95,1
+632,Female,White,22.5,Medium,Master,91.4,13.5,0.85,1
+633,Male,Black,21.5,Low,High School,100.0,5.1,0.87,1
+634,Male,Hispanic,20.6,Low,High School,63.8,8.1,0.65,1
+635,Male,Asian,18.0,Medium,High School,77.4,3.1,0.98,1
+636,Male,White,18.1,Medium,Bachelor,54.2,2.2,0.65,0
+637,Male,White,19.8,High,Master,80.5,0.6,0.91,0
+638,Male,White,20.2,Medium,High School,69.5,10.4,0.71,1
+639,Male,Other,18.0,High,PhD,94.2,7.6,0.97,1
+640,Male,Asian,24.8,Medium,High School,67.3,0.9,0.89,1
+641,Male,Black,23.0,Low,High School,58.1,3.6,0.9,0
+642,Male,Hispanic,21.2,Low,Bachelor,70.3,3.3,0.69,0
+643,Male,Black,20.1,Medium,High School,55.2,4.9,0.78,1
+644,Male,Black,19.6,Medium,High School,82.5,14.6,0.85,1
+645,Male,White,18.1,Low,High School,54.3,4.3,0.91,0
+646,Female,Hispanic,20.2,Medium,Bachelor,75.3,3.9,0.64,0
+647,Male,White,20.5,High,Bachelor,54.2,0.3,0.98,1
+648,Female,Hispanic,18.0,Medium,Master,71.8,0.3,0.96,0
+649,Female,Hispanic,20.7,Medium,Bachelor,91.4,1.0,0.71,1
+650,Male,Hispanic,19.7,Medium,High School,78.6,0.2,0.93,1
+651,Male,White,18.0,Low,High School,66.4,6.8,0.81,1
+652,Male,White,18.3,Medium,High School,74.7,6.4,0.78,1
+653,Male,White,19.2,Medium,Bachelor,75.2,0.7,0.73,0
+654,Female,White,23.8,Low,High School,79.7,9.0,0.83,0
+655,Male,White,21.1,Medium,Master,61.3,0.8,0.89,0
+656,Male,Asian,18.0,Medium,High School,80.9,1.8,0.76,1
+657,Male,Black,21.0,High,Master,50.0,1.4,0.85,0
+658,Male,White,18.0,High,Master,68.7,2.3,0.88,1
+659,Female,White,22.2,Low,High School,70.1,1.5,0.88,1
+660,Male,White,19.1,Medium,High School,81.3,3.4,0.62,0
+661,Male,Black,19.8,Medium,High School,75.2,2.6,0.94,0
+662,Female,Black,22.7,High,Master,60.9,20.0,0.78,1
+663,Female,Asian,18.0,Low,High School,65.2,0.3,0.7,0
+664,Male,White,18.0,Medium,High School,77.0,0.8,0.7,1
+665,Male,Other,18.8,Medium,Bachelor,74.2,0.3,0.79,1
+666,Male,Asian,22.1,Low,Bachelor,69.2,4.9,0.95,1
+667,Male,White,18.0,Low,High School,70.2,0.3,0.75,0
+668,Male,Asian,18.0,Medium,High School,82.0,9.1,0.9,1
+669,Male,White,19.1,Medium,Bachelor,69.8,3.6,0.64,1
+670,Male,Hispanic,21.1,Medium,High School,74.1,3.7,0.79,1
+671,Male,White,22.4,Medium,High School,96.7,4.1,1.0,1
+672,Female,Asian,19.1,Medium,Bachelor,60.8,0.9,0.91,1
+673,Male,Asian,19.2,Medium,High School,56.5,1.1,0.68,1
+674,Male,Hispanic,22.3,Low,High School,82.8,1.9,0.8,1
+675,Male,Hispanic,18.0,High,Bachelor,68.2,4.5,0.69,1
+676,Female,White,19.2,Low,High School,71.8,1.2,0.76,0
+677,Male,White,20.4,Medium,High School,67.2,0.6,0.91,1
+678,Male,White,20.9,Low,Bachelor,72.4,17.6,0.91,1
+679,Female,White,19.0,Low,High School,91.0,0.1,0.69,1
+680,Female,Black,20.1,Medium,High School,83.0,8.1,0.97,1
+681,Female,White,18.0,Low,High School,83.6,7.8,0.84,1
+682,Male,Other,18.7,High,PhD,60.8,1.8,0.75,1
+683,Male,Black,20.9,Low,High School,63.5,0.7,0.8,1
+684,Female,Hispanic,18.0,Medium,High School,50.0,0.8,0.84,1
+685,Female,White,20.1,Medium,Bachelor,66.9,6.0,0.82,1
+686,Male,Asian,20.9,Low,High School,84.6,5.1,0.79,1
+687,Male,Asian,19.3,Low,High School,80.2,7.6,0.8,0
+688,Male,White,20.3,Medium,High School,72.8,13.9,0.67,1
+689,Female,Black,18.1,Medium,High School,74.8,5.9,0.93,0
+690,Male,Hispanic,19.6,Medium,High School,68.1,0.8,0.82,1
+691,Male,White,21.2,Medium,Bachelor,77.0,1.4,0.65,0
+692,Male,Black,20.3,Medium,High School,82.7,9.2,0.91,0
+693,Male,White,18.8,Low,High School,58.8,1.2,0.97,0
+694,Male,White,20.4,Medium,High School,78.0,0.4,0.98,1
+695,Male,White,21.4,High,Bachelor,84.3,6.1,0.75,0
+696,Female,White,18.0,Medium,Bachelor,70.8,2.6,0.65,0
+697,Male,White,22.3,Medium,Master,82.0,12.6,0.81,1
+698,Male,White,19.3,Medium,High School,100.0,5.3,0.65,1
+699,Male,Other,20.9,Medium,Bachelor,74.0,0.5,0.97,0
+700,Male,Black,22.4,Medium,High School,78.9,14.8,0.67,1
+701,Male,Other,18.0,Medium,High School,67.6,1.5,0.7,1
+702,Male,White,18.6,High,Bachelor,76.8,2.1,0.76,1
+703,Male,White,19.4,Low,High School,79.6,2.6,0.75,1
+704,Male,Black,18.4,Low,High School,76.9,0.3,0.92,1
+705,Male,White,23.5,Medium,High School,64.8,3.4,0.78,0
+706,Female,White,18.3,High,PhD,77.1,0.7,0.67,0
+707,Male,Black,18.9,Low,High School,89.6,2.6,0.71,1
+708,Female,White,20.4,Low,High School,79.5,2.2,0.8,0
+709,Male,Black,18.0,Low,High School,84.6,7.4,0.66,1
+710,Female,Black,19.2,Low,High School,72.6,8.1,0.84,0
+711,Female,White,20.6,Medium,Bachelor,82.5,0.8,0.83,1
+712,Male,White,19.3,Medium,High School,77.8,2.3,0.89,0
+713,Male,Hispanic,19.8,Medium,High School,65.5,2.3,0.98,0
+714,Male,White,18.9,Medium,Bachelor,78.2,0.8,0.96,1
+715,Male,White,18.0,Low,Bachelor,65.1,8.0,0.98,1
+716,Female,Other,20.6,Low,High School,68.7,6.1,0.7,0
+717,Female,White,23.5,Medium,High School,76.9,1.1,0.65,0
+718,Female,Black,20.0,High,PhD,78.0,2.3,0.72,1
+719,Male,Other,20.5,High,Master,63.1,0.6,0.96,0
+720,Female,White,21.4,Low,High School,85.5,4.9,0.99,1
+721,Female,White,18.0,High,Master,80.7,0.6,0.94,1
+722,Male,White,23.4,Medium,High School,68.0,20.0,0.64,1
+723,Male,White,20.4,Medium,Bachelor,59.6,7.6,0.98,1
+724,Female,White,23.3,Medium,Bachelor,73.6,2.5,0.77,1
+725,Male,Black,18.5,Medium,High School,70.5,4.3,0.6,1
+726,Female,White,23.6,Medium,Bachelor,76.1,12.1,0.78,1
+727,Male,Black,21.6,Low,High School,71.4,4.0,0.62,1
+728,Female,Other,21.1,Low,High School,54.9,1.0,0.82,0
+729,Male,Hispanic,20.5,Low,High School,71.1,2.4,0.74,1
+730,Male,Black,19.5,Medium,Bachelor,71.9,9.3,0.79,1
+731,Male,White,22.4,Medium,Bachelor,81.3,5.2,0.85,1
+732,Female,Black,20.3,Medium,Bachelor,68.0,5.3,0.95,1
+733,Female,Black,18.0,Low,High School,91.8,10.1,0.86,1
+734,Male,White,18.0,High,Bachelor,55.9,11.2,0.77,1
+735,Male,White,19.6,High,PhD,88.1,12.6,0.93,1
+736,Female,Asian,20.6,Medium,Bachelor,72.8,0.5,0.96,1
+737,Male,White,19.9,High,Bachelor,83.6,3.9,0.65,1
+738,Female,White,22.4,Medium,Bachelor,75.8,6.7,0.81,0
+739,Male,White,18.0,High,Master,86.4,7.1,0.71,1
+740,Male,White,20.3,Low,High School,71.1,4.7,0.62,1
+741,Male,Hispanic,18.0,Medium,High School,64.0,0.9,0.87,1
+742,Male,Hispanic,21.5,Low,High School,89.2,8.0,0.95,1
+743,Female,Hispanic,19.8,Low,Bachelor,73.9,6.4,0.67,0
+744,Male,White,20.8,Low,High School,77.2,0.5,0.92,0
+745,Male,White,18.3,Medium,Master,87.3,3.1,0.94,1
+746,Female,White,22.6,Medium,Master,64.7,1.0,0.97,1
+747,Male,White,22.1,Medium,High School,81.0,2.1,0.71,1
+748,Male,White,21.2,Low,High School,69.1,0.1,0.96,0
+749,Female,Hispanic,19.7,High,Master,73.7,2.6,0.73,0
+750,Female,White,21.2,Medium,Bachelor,75.7,4.0,0.82,1
+751,Male,Black,18.6,Medium,High School,60.0,4.8,0.62,1
+752,Female,White,21.7,Medium,Master,67.2,5.4,0.62,0
+753,Female,White,23.3,Low,High School,88.5,9.0,0.89,0
+754,Male,White,22.1,Medium,Bachelor,83.9,1.2,0.78,1
+755,Male,Other,18.5,High,Bachelor,74.4,0.6,0.7,1
+756,Female,Hispanic,20.7,Low,High School,77.4,9.5,0.68,0
+757,Female,Other,18.0,Medium,Bachelor,72.1,0.9,0.87,1
+758,Male,White,21.1,High,Bachelor,88.6,18.4,0.6,1
+759,Female,White,20.9,Medium,Bachelor,73.0,9.2,0.92,0
+760,Female,Black,18.0,Low,High School,77.3,3.5,0.63,0
+761,Male,White,18.0,Low,High School,86.5,19.9,0.68,1
+762,Male,Hispanic,19.4,Low,High School,67.2,0.5,0.75,0
+763,Male,White,19.4,Medium,Bachelor,90.6,1.8,0.79,1
+764,Female,White,18.0,Medium,Bachelor,59.7,5.1,0.74,0
+765,Male,White,20.8,Low,High School,91.3,2.2,0.73,1
+766,Male,White,20.5,High,Bachelor,71.3,13.2,0.99,1
+767,Female,Hispanic,19.6,Medium,High School,72.6,0.3,0.86,1
+768,Female,White,18.5,Low,High School,56.1,4.0,0.61,0
+769,Male,White,22.1,Medium,Bachelor,70.5,4.5,0.77,0
+770,Female,White,23.3,Medium,Bachelor,64.6,5.3,0.95,0
+771,Male,White,19.0,Low,High School,68.9,1.5,0.72,0
+772,Female,Hispanic,18.8,Low,High School,73.6,2.3,0.64,0
+773,Male,Asian,21.0,High,Master,84.6,9.3,0.9,1
+774,Male,Other,19.3,Medium,High School,77.1,1.1,0.84,1
+775,Female,Hispanic,19.7,Medium,High School,78.1,8.8,0.83,1
+776,Male,White,21.5,Medium,Master,64.0,4.1,0.62,0
+777,Male,Black,18.0,Low,Bachelor,66.2,7.2,0.66,1
+778,Female,White,22.6,Low,High School,93.0,6.3,0.85,1
+779,Female,White,20.1,Medium,Bachelor,67.6,1.2,0.68,1
+780,Female,Hispanic,19.2,Low,Bachelor,91.6,4.2,0.8,1
+781,Female,White,19.8,Low,High School,72.6,10.1,0.82,0
+782,Male,Asian,19.9,High,Bachelor,75.0,2.8,0.71,0
+783,Male,White,18.0,High,Bachelor,85.7,17.0,0.98,1
+784,Male,Black,23.0,Medium,Bachelor,87.7,3.0,0.94,1
+785,Male,Black,20.1,High,PhD,73.9,0.8,0.89,1
+786,Female,Asian,20.9,Low,High School,71.1,2.5,0.63,0
+787,Male,Black,21.9,High,Bachelor,74.4,15.2,0.64,1
+788,Male,Black,18.0,Low,High School,78.4,1.9,0.8,1
+789,Male,White,20.9,High,PhD,83.9,10.1,0.66,0
+790,Female,Black,19.5,High,PhD,75.0,10.7,0.99,0
+791,Male,White,21.7,Medium,Bachelor,81.2,2.2,0.66,0
+792,Male,Hispanic,18.0,High,Master,91.4,0.4,0.79,1
+793,Male,Black,19.8,Medium,High School,78.8,6.4,0.75,0
+794,Female,Black,18.8,Low,Bachelor,78.1,1.9,0.86,0
+795,Male,White,20.9,Medium,Bachelor,59.8,7.6,0.65,1
+796,Female,White,20.9,Medium,High School,50.0,2.9,0.77,0
+797,Female,Hispanic,18.6,Low,High School,78.9,3.3,0.71,1
+798,Male,White,18.6,Medium,High School,74.1,7.5,0.96,1
+799,Female,White,19.8,High,Bachelor,69.9,2.4,0.62,1
+800,Female,White,18.2,Low,High School,77.4,2.9,0.97,0
+801,Female,Other,21.7,Medium,High School,74.4,2.4,0.93,1
+802,Male,Hispanic,19.3,High,Master,86.3,2.3,0.72,1
+803,Male,White,18.0,High,Master,75.9,3.7,0.92,1
+804,Female,White,19.3,High,Master,67.5,8.3,0.61,1
+805,Male,White,18.0,Medium,Bachelor,84.9,2.2,0.99,1
+806,Female,Hispanic,18.0,High,Bachelor,72.8,3.7,0.81,1
+807,Female,Black,18.0,Medium,High School,80.3,5.6,0.72,0
+808,Female,White,20.2,Low,High School,70.2,1.6,0.75,0
+809,Male,White,22.7,Medium,High School,68.5,1.6,0.63,1
+810,Male,White,20.6,Medium,High School,75.8,13.5,1.0,1
+811,Female,Black,18.8,Low,Bachelor,75.1,6.4,0.62,1
+812,Female,Hispanic,20.9,Medium,Bachelor,79.8,4.3,0.86,1
+813,Male,White,19.1,Medium,Bachelor,72.3,5.2,0.78,1
+814,Female,White,18.6,Low,High School,56.6,0.1,0.98,0
+815,Female,White,18.0,Medium,High School,70.7,4.8,0.7,0
+816,Male,Other,18.0,Medium,Bachelor,82.9,3.6,0.81,0
+817,Male,White,19.2,Medium,High School,72.0,3.9,0.79,1
+818,Male,Hispanic,20.3,Low,High School,72.5,2.2,0.88,0
+819,Male,Black,19.8,Low,High School,84.9,0.4,0.63,0
+820,Male,White,19.2,Medium,Bachelor,67.9,1.1,0.68,0
+821,Female,White,18.1,High,Bachelor,59.6,15.1,0.69,0
+822,Male,White,21.2,Low,Bachelor,73.4,2.6,0.9,0
+823,Male,Black,18.0,Medium,Bachelor,70.2,3.1,0.68,1
+824,Male,Hispanic,21.6,Low,High School,65.3,0.3,0.83,1
+825,Male,Black,18.0,Medium,Bachelor,73.2,0.2,0.69,0
+826,Female,Black,18.5,High,Master,79.9,6.3,0.94,1
+827,Male,White,18.0,Medium,Bachelor,74.9,3.9,0.98,1
+828,Male,Other,19.0,Low,High School,78.1,3.6,0.81,0
+829,Female,Hispanic,22.0,Medium,Bachelor,93.1,1.4,0.74,1
+830,Male,White,21.0,Low,High School,71.6,6.8,0.69,0
+831,Male,Other,22.0,Medium,Master,77.8,0.9,0.62,1
+832,Male,Black,21.0,Medium,Bachelor,69.9,1.1,0.71,0
+833,Male,Black,18.0,Low,High School,66.5,3.1,0.86,0
+834,Male,Hispanic,19.3,Low,High School,69.2,1.7,0.81,0
+835,Male,Hispanic,18.4,Medium,Bachelor,70.2,1.4,0.98,1
+836,Male,Black,22.7,High,Master,78.6,5.2,0.76,1
+837,Female,White,18.0,High,Bachelor,98.5,5.3,0.88,1
+838,Male,White,21.8,Low,High School,67.8,8.7,0.8,0
+839,Male,Asian,21.8,Medium,Master,70.8,2.7,0.81,1
+840,Female,White,23.7,Medium,Bachelor,74.4,0.4,0.71,1
+841,Male,White,19.2,Medium,Bachelor,79.0,1.6,0.78,0
+842,Female,White,21.4,Medium,High School,77.6,19.6,0.79,1
+843,Male,White,24.6,High,Master,87.8,4.5,0.88,1
+844,Female,Black,18.8,High,Master,50.7,6.2,0.98,1
+845,Male,Asian,18.0,Medium,Bachelor,51.1,0.0,0.73,0
+846,Male,White,18.0,Medium,High School,70.0,3.7,0.62,1
+847,Male,White,21.4,Medium,Bachelor,86.0,0.2,0.8,0
+848,Female,White,18.0,Low,High School,59.3,4.2,0.82,0
+849,Male,Asian,19.3,Medium,High School,50.0,12.7,0.67,1
+850,Male,Black,20.9,Medium,High School,80.7,17.3,0.9,1
+851,Male,White,20.4,Medium,High School,77.4,3.9,0.99,0
+852,Female,Hispanic,20.9,Low,High School,64.1,3.1,0.98,0
+853,Male,Asian,20.4,Low,High School,65.1,14.5,0.68,0
+854,Female,Hispanic,22.6,High,Bachelor,65.3,5.6,0.95,0
+855,Male,Asian,18.1,Low,Bachelor,76.1,0.3,0.88,0
+856,Male,White,18.6,Medium,High School,68.7,3.1,0.78,0
+857,Male,Hispanic,18.5,Low,High School,79.9,1.4,0.82,0
+858,Male,White,21.7,Low,High School,50.0,3.2,0.94,0
+859,Male,Hispanic,21.8,Low,High School,66.4,3.0,0.79,0
+860,Male,Hispanic,20.9,Low,High School,63.7,4.4,0.75,0
+861,Female,Hispanic,22.4,High,Master,72.4,2.2,0.8,1
+862,Male,Black,18.0,Low,High School,69.6,0.9,0.83,1
+863,Male,White,23.3,High,Master,83.0,3.5,0.68,1
+864,Male,Black,23.0,Medium,High School,56.4,8.9,0.96,1
+865,Male,Other,21.5,Medium,High School,75.5,5.5,0.87,1
+866,Male,Asian,23.6,Medium,Bachelor,80.6,2.1,0.85,1
+867,Male,White,18.0,Medium,High School,93.6,13.7,0.64,1
+868,Male,White,19.0,Medium,Bachelor,70.2,12.2,0.84,0
+869,Female,White,18.5,Low,High School,78.2,1.2,0.65,0
+870,Female,Hispanic,21.4,Medium,High School,57.0,0.2,0.63,0
+871,Male,Hispanic,18.0,High,Bachelor,51.1,6.8,0.81,0
+872,Male,White,21.5,High,Bachelor,83.4,8.8,0.76,1
+873,Female,Black,22.7,High,Master,74.9,17.2,0.84,1
+874,Male,Hispanic,21.4,Medium,Bachelor,86.8,11.0,0.64,1
+875,Male,Hispanic,20.6,Medium,Bachelor,61.3,4.6,0.77,1
+876,Male,Black,18.0,Medium,High School,80.2,3.8,0.67,1
+877,Female,Black,18.3,Medium,Bachelor,93.7,0.1,0.99,1
+878,Female,Black,22.5,Low,Bachelor,79.2,1.4,0.82,0
+879,Male,White,21.6,Medium,High School,77.8,3.1,0.87,1
+880,Male,Black,19.9,Low,High School,75.1,5.0,0.73,1
+881,Male,Black,19.2,Medium,Master,59.3,4.1,0.64,0
+882,Female,Asian,18.0,High,Master,88.6,6.8,0.99,1
+883,Male,Black,18.0,Low,High School,68.9,1.6,0.71,0
+884,Male,Hispanic,23.8,Low,High School,80.0,4.2,0.77,0
+885,Female,White,18.0,Low,High School,59.4,0.5,0.86,1
+886,Male,White,20.4,High,Bachelor,63.2,2.7,0.61,0
+887,Female,White,22.0,Medium,Master,89.4,6.9,0.92,1
+888,Male,White,18.0,Medium,Bachelor,71.5,5.9,0.81,1
+889,Male,Hispanic,20.4,High,PhD,89.5,20.0,0.71,1
+890,Male,Other,21.9,High,PhD,74.2,1.6,0.62,1
+891,Female,White,20.0,Medium,Bachelor,56.6,3.4,0.66,0
+892,Female,White,25.0,Medium,Bachelor,83.9,2.0,0.96,1
+893,Female,Hispanic,18.0,Medium,Bachelor,69.1,2.9,0.87,0
+894,Male,White,22.1,Medium,Master,82.0,9.7,0.7,1
+895,Female,Black,19.7,Low,High School,75.3,5.8,0.63,0
+896,Male,Hispanic,21.5,High,PhD,59.6,10.7,0.88,1
+897,Male,Black,20.9,Medium,Bachelor,76.6,1.1,0.83,1
+898,Female,White,18.5,Low,High School,97.0,10.3,0.76,1
+899,Male,White,20.5,Medium,Bachelor,79.9,0.3,0.75,1
+900,Male,Hispanic,18.0,Low,High School,74.4,11.0,0.69,1
+901,Male,Black,21.2,Low,High School,85.8,2.0,0.87,1
+902,Male,White,20.6,Medium,High School,77.1,1.9,0.99,1
+903,Male,Hispanic,21.3,Low,High School,77.1,3.6,0.67,0
+904,Male,White,22.1,Medium,High School,64.1,14.1,0.84,1
+905,Male,Hispanic,20.7,Medium,Bachelor,77.3,0.2,0.77,1
+906,Female,White,20.3,Low,Bachelor,85.4,2.2,0.78,1
+907,Female,Other,18.2,High,Master,66.6,9.7,0.7,0
+908,Male,White,18.6,Low,High School,89.2,2.5,0.93,1
+909,Male,White,22.4,Medium,High School,74.1,1.1,0.79,1
+910,Male,White,22.9,Medium,High School,66.1,2.8,0.82,1
+911,Male,White,19.5,Low,High School,85.0,2.4,0.72,0
+912,Male,Asian,20.1,Low,High School,72.1,12.4,0.67,1
+913,Female,Other,18.2,Medium,Bachelor,82.6,7.2,0.63,1
+914,Male,White,22.3,High,Bachelor,72.1,3.5,0.89,1
+915,Male,White,21.3,Low,High School,74.4,20.0,0.68,0
+916,Male,Hispanic,23.9,Medium,High School,79.9,3.1,0.88,1
+917,Male,Asian,18.2,Medium,High School,77.9,0.3,0.76,1
+918,Female,Black,19.2,High,Bachelor,55.0,1.5,0.77,0
+919,Female,White,20.5,Medium,High School,63.8,2.9,0.79,1
+920,Male,White,21.3,Medium,High School,84.3,0.9,0.75,0
+921,Female,Black,19.6,Medium,High School,73.7,14.7,0.64,1
+922,Male,White,18.3,Medium,Master,69.8,7.3,0.72,0
+923,Female,Black,21.8,High,Master,61.4,1.6,0.87,0
+924,Female,White,21.4,Low,High School,64.2,4.5,0.87,1
+925,Male,Hispanic,18.2,Medium,High School,54.8,6.4,0.71,0
+926,Male,White,22.7,High,Master,74.0,14.2,0.78,1
+927,Male,Black,22.3,High,Bachelor,69.0,10.7,0.68,1
+928,Male,White,20.3,High,PhD,65.3,3.6,0.68,1
+929,Female,Black,20.2,Medium,Master,74.3,7.5,0.61,1
+930,Male,White,21.1,Medium,High School,78.6,4.1,0.96,1
+931,Male,Black,18.3,Medium,Bachelor,95.9,4.0,0.68,1
+932,Female,Black,20.1,Medium,High School,59.9,0.6,0.69,0
+933,Female,Black,18.0,Low,High School,86.6,0.7,0.71,0
+934,Male,Black,21.8,Medium,Bachelor,84.7,3.8,0.65,1
+935,Male,Black,18.0,Medium,High School,67.2,1.6,0.86,1
+936,Male,Hispanic,23.0,Low,High School,77.0,0.1,0.63,0
+937,Male,White,19.3,Medium,Bachelor,70.4,6.4,0.65,1
+938,Female,Hispanic,19.6,Medium,Bachelor,76.9,0.2,0.86,0
+939,Male,White,18.7,High,Bachelor,90.1,4.5,0.74,1
+940,Male,White,19.4,Low,High School,81.1,3.9,0.88,1
+941,Male,White,22.8,Low,High School,80.1,17.3,0.82,0
+942,Male,White,18.0,Medium,Bachelor,70.7,3.3,0.7,0
+943,Female,Hispanic,22.6,Low,High School,60.2,0.3,0.86,0
+944,Female,Hispanic,20.7,Medium,Bachelor,72.9,4.0,0.65,0
+945,Male,Hispanic,18.0,Medium,Bachelor,87.1,9.2,0.81,1
+946,Male,Black,18.0,Low,High School,59.7,20.0,0.77,1
+947,Male,White,23.4,Medium,Bachelor,64.4,2.8,0.71,1
+948,Female,White,18.1,Medium,Bachelor,76.3,1.9,0.84,1
+949,Female,White,18.0,Medium,Master,65.2,11.9,0.95,0
+950,Male,White,22.3,High,Bachelor,67.1,1.1,1.0,1
+951,Female,White,20.7,High,Master,70.8,4.8,0.84,1
+952,Female,White,18.1,Medium,High School,61.3,2.6,0.76,1
+953,Male,Black,20.4,Medium,Master,65.3,0.2,0.69,0
+954,Female,Hispanic,18.0,Medium,High School,82.0,2.1,0.7,1
+955,Male,Other,22.2,High,PhD,61.9,1.5,0.79,0
+956,Male,Asian,22.1,Medium,Master,59.0,5.8,0.75,1
+957,Male,Black,21.1,Medium,High School,68.7,14.9,0.97,1
+958,Male,White,20.7,High,PhD,82.3,1.6,0.75,1
+959,Male,Black,23.5,Low,Bachelor,73.0,8.3,0.75,0
+960,Female,Hispanic,20.0,High,Bachelor,70.4,0.3,0.75,1
+961,Male,White,18.0,Low,High School,75.4,3.9,0.93,0
+962,Female,White,20.9,Medium,Bachelor,57.5,0.4,0.86,1
+963,Male,Hispanic,24.2,Medium,High School,79.9,13.6,0.85,1
+964,Male,White,18.0,High,Bachelor,78.8,7.3,0.73,1
+965,Male,Black,19.3,High,Bachelor,70.9,5.4,0.93,1
+966,Male,Black,20.8,Medium,High School,85.1,8.7,0.62,1
+967,Female,White,19.9,Medium,Bachelor,63.7,5.2,0.95,1
+968,Male,White,18.0,Medium,High School,86.3,17.4,0.81,1
+969,Male,White,22.2,High,PhD,76.5,6.3,0.76,0
+970,Male,White,24.6,Medium,Bachelor,71.6,12.9,0.8,1
+971,Female,White,20.4,Medium,High School,74.8,3.6,0.87,0
+972,Female,Hispanic,18.2,Low,High School,73.9,0.6,0.61,1
+973,Female,White,18.0,Medium,Bachelor,87.2,3.8,0.95,1
+974,Male,Black,20.5,Medium,Master,64.2,0.7,0.78,1
+975,Male,White,22.2,Medium,High School,67.4,4.5,0.74,1
+976,Male,Asian,21.0,Low,High School,85.4,3.3,0.66,1
+977,Male,White,20.0,High,PhD,69.0,4.9,0.78,1
+978,Male,White,18.8,Low,Bachelor,84.0,0.1,0.8,1
+979,Male,Asian,18.0,Medium,Bachelor,92.0,1.1,0.76,0
+980,Male,Hispanic,21.7,High,PhD,71.0,3.4,0.87,1
+981,Male,White,21.8,Medium,High School,81.8,15.0,0.77,1
+982,Female,Hispanic,18.0,Low,High School,63.5,2.4,0.98,0
+983,Male,White,23.2,Medium,High School,82.5,2.8,0.84,1
+984,Male,White,21.1,High,Bachelor,77.0,6.3,0.92,1
+985,Female,White,22.8,Medium,Bachelor,79.7,4.6,0.64,1
+986,Male,White,18.0,High,Bachelor,68.5,1.8,0.76,1
+987,Female,Hispanic,18.0,Low,High School,58.4,2.6,0.73,0
+988,Male,White,19.7,Medium,Master,80.0,1.2,0.83,1
+989,Male,White,21.0,Medium,High School,54.4,16.9,0.94,1
+990,Female,Hispanic,23.6,High,PhD,71.8,0.7,0.63,0
+991,Female,Hispanic,21.4,Low,Bachelor,84.4,2.3,0.63,0
+992,Female,White,19.5,High,Master,76.9,0.1,0.94,1
+993,Male,Black,18.0,Medium,High School,94.5,1.3,0.69,0
+994,Male,White,22.5,Medium,High School,85.3,7.6,0.87,1
+995,Male,Hispanic,18.1,Low,High School,68.5,1.1,0.82,0
+996,Male,Black,23.3,High,Master,75.3,0.4,0.93,1
+997,Female,Other,19.4,Low,High School,74.5,3.2,0.65,0
+998,Male,White,23.2,Medium,Master,59.2,0.1,0.65,1
+999,Female,White,21.4,Low,High School,65.6,0.4,0.82,0
+1000,Male,White,19.7,High,PhD,69.4,8.2,0.98,1
