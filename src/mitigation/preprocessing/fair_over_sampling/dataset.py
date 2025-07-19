@@ -1,3 +1,10 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:7a22f0b8988090fddce9bb53bbea12ef67a0c71f5369976a0c5bf90593239efb
-size 234
+class Dataset:
+    """
+    Parent class of noise filtering methods
+    """
+    def __init__(self, x_train, protected_attribute):
+        """
+        Constructor
+        """
+        self.data = x_train
+        self.protected_attributes
