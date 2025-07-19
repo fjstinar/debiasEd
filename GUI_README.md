@@ -29,7 +29,7 @@ This script will:
 
 ## System Requirements
 
-- **Python 3.7+** (Python 3.8+ recommended)
+- **Python 3.11+** (Python 3.11 recommended)
 - **Operating System:** Windows, macOS, or Linux
 - **Memory:** 2GB RAM minimum
 - **Storage:** 500MB for datasets

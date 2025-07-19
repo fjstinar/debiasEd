@@ -1,10 +1,10 @@
-Write-Host "📦 Creating virtual environment..."
+Write-Host " Creating virtual environment..."
 python setup/scripts/install_env.py
 
-Write-Host "🐍 Activating virtual environment..."
+Write-Host " Activating virtual environment..."
 . .\debiased\Scripts\Activate.ps1
 
-Write-Host "📦 Installing dependencies..."
+Write-Host " Installing dependencies..."
 pip install --upgrade pip
 pip install -r setup/requirements.txt
 
@@ -18,5 +18,5 @@ while ($useDataset -eq "yes") {
     $useDataset = Read-Host "Do you want to load another dataset? (yes or no)"
 }
 
-Write-Host "📊 Data import done."
+Write-Host "Data import done."
 python setup/scripts/run_fairness_gui.py

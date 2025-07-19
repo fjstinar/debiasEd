@@ -10,7 +10,7 @@ Usage:
     python run_fairness_gui.py
 
 Requirements:
-    - Python 3.7+
+    - Python 3.11
     - Required packages (will be checked and reported)
 """
 import sys
@@ -37,10 +37,10 @@ REQUIRED_PACKAGES = {
 def check_python_version():
     """Check if Python version is compatible"""
     if sys.version_info < (3, 7):
-        print("❌ Error: Python 3.7 or higher is required.")
+        print(" Error: Python 3.7 or higher is required.")
         print(f"   Current version: {sys.version}")
         return False
-    print(f"✅ Python version: {sys.version}")
+    print(f" Python version: {sys.version}")
     return True
 
 def check_package_installation():
@@ -49,17 +49,17 @@ def check_package_installation():
     for package, pip_name in REQUIRED_PACKAGES.items():
         try:
             importlib.import_module(package)
-            print(f"✅ {package} is installed")
+            print(f" {package} is installed")
         except ImportError:
             missing_packages.append((package, pip_name))
-            print(f"❌ {package} is missing")
+            print(f"{package} is missing")
     return missing_packages
 
 def install_missing_packages(missing_packages):
     """Attempt to install missing packages"""
     if not missing_packages:
         return True
-    print("\n📦 Missing packages detected. Attempting to install...")
+    print("\n Missing packages detected. Attempting to install...")
     for _, pip_name in missing_packages:
         if pip_name in ['tkinter', 'pickle']:  # Skip built-in packages
             continue
@@ -67,9 +67,9 @@ def install_missing_packages(missing_packages):
         try:
             print(f"   Installing {pip_name}...")
             subprocess.check_call([sys.executable, "-m", "pip", "install", pip_name])
-            print(f"   ✅ {pip_name} installed successfully")
+            print(f"    {pip_name} installed successfully")
         except subprocess.CalledProcessError:
-            print(f"   ❌ Failed to install {pip_name}")
+            print(f"    Failed to install {pip_name}")
             return False
     
     return True
@@ -211,7 +211,7 @@ def main():
     # Check package installation
     missing = check_package_installation()
     if missing and not install_missing_packages(missing):
-        print("\n❌ Could not install required packages.")
+        print("\n Could not install required packages.")
         print("   Please install manually:")
         for package, pip_name in missing:
             if pip_name not in ['tkinter', 'pickle']:
@@ -223,7 +223,7 @@ def main():
     
     # Exit if only checking
     if len(sys.argv) > 1 and sys.argv[1] == '--check':
-        print("\n✅ System check complete!")
+        print("\n System check complete!")
         return
     
     # Show status summary
@@ -243,15 +243,15 @@ def main():
     success = run_gui()
     
     if success:
-        print("\n👋 Thanks for using DebiasEd!")
+        print("\n Thanks for using DebiasEd!")
     else:
-        print("\n❌ GUI failed to start. Check error messages above.")
+        print("\n GUI failed to start. Check error messages above.")
 
 if __name__ == "__main__":
     try:
         main()
     except KeyboardInterrupt:
-        print("\n\n👋 Goodbye!")
+        print("\n\n Goodbye!")
     except Exception as e:
-        print(f"\n❌ Unexpected error: {e}")
+        print(f"\n Unexpected error: {e}")
         print("   Please report this issue if it persists.") 

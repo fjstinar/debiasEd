@@ -4,7 +4,7 @@ Creates Virtual Environment to Self Contain Debiase
 ==============================================
 
 Requirements:
-    - Python 3.7+
+    - Python 3.11
     - Required packages (will be checked and reported)
     - MAC OS
 """
@@ -53,8 +53,8 @@ def create_and_activate_env():
     python_exe = shutil.which("python3.11")
 
     if not python_exe:
-        print("❌ Python 3.11 not found in PATH.")
-        print("💡 To fix this:")
+        print("Python 3.11 not found in PATH.")
+        print("To fix this:")
 
         if sys.platform == "darwin":
             print("   Please download and install Python 3.11 from the official website:")
@@ -72,10 +72,10 @@ def create_and_activate_env():
     print(f"📦 Creating virtual environment at {env_path} using {python_exe}")
     try:
         subprocess.run([python_exe, "-m", "venv", env_path], check=True)
-        print("✅ Virtual environment created.")
+        print("Virtual environment created.")
     except subprocess.CalledProcessError as e:
-        print(f"❌ Failed to create virtual environment: {e}")
-        print("💡 Ensure that the 'venv' module is available in your Python 3.11 installation.")
+        print(f"Failed to create virtual environment: {e}")
+        print("Ensure that the 'venv' module is available in your Python 3.11 installation.")
         sys.exit(2)
 
 
