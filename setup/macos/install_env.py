@@ -11,6 +11,9 @@ Requirements:
 
 import os
 import subprocess
+import shutil
+import sys
+
 
 def conda_env_exists(name="debiased"):
     """Checks if a Python environment on Conda exists
@@ -40,23 +43,41 @@ def debiased_env_exists(name='debiased', path="."):
     contents = os.listdir(venv_path)
     return all(any(item.startswith(name) for item in contents) for name in expected_dirs)
 
+
 def create_and_activate_env():
     """
-    Create a virtual environment with Python 3.11 named 'debiased'.
-    Activation is simulated by launching a subprocess within the environment.
+    Create a 'debiased' virtual environment using system-wide python3.11.
+    Provides platform-specific guidance if python3.11 is missing.
     """
     env_path = os.path.abspath('debiased')
+    python_exe = shutil.which("python3.11")
 
+    if not python_exe:
+        print("❌ Python 3.11 not found in PATH.")
+        print("💡 To fix this:")
+
+        if sys.platform == "darwin":
+            print("   Please download and install Python 3.11 from the official website:")
+            print("   https://www.python.org/downloads/macos/")
+        elif sys.platform.startswith("linux"):
+            print("   Install via your package manager. For example:")
+            print("     Debian/Ubuntu: sudo apt update && sudo apt install python3.11 python3.11-venv")
+            print("     Fedora:         sudo dnf install python3.11 python3.11-venv")
+            print("     Arch:           sudo pacman -S python311")
+        else:
+            print("   Please install Python 3.11 appropriate for your platform.")
+
+        sys.exit(1)
+
+    print(f"📦 Creating virtual environment at {env_path} using {python_exe}")
     try:
-        print(f"Creating virtual environment debiased using python 3.11")
-        subprocess.run(["python3.11", "-m", "venv", env_path], check=True)
-        print("Environment created")
-    except FileNotFoundError:
-        print(f"python 3.11 not found. Make sure Python 3.11 is installed.")
-        return
+        subprocess.run([python_exe, "-m", "venv", env_path], check=True)
+        print("✅ Virtual environment created.")
     except subprocess.CalledProcessError as e:
-        print(f"❌ Failed to create environment: {e}")
-        return
+        print(f"❌ Failed to create virtual environment: {e}")
+        print("💡 Ensure that the 'venv' module is available in your Python 3.11 installation.")
+        sys.exit(2)
+
 
 def check_debiased_exists():
     conda_deb = conda_env_exists()
