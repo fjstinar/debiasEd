@@ -348,7 +348,7 @@ class DynamicPreprocessingWrapper:
         # Add feature type configurations for luong method
         settings['preprocessors']['luong']['continuous'] = list(range(10))  # Assume first 10 features are continuous
         settings['preprocessors']['luong']['categorical'] = []
-        settings['preprocessors']['luong']['ordinal'] = []
+        settings['preprocessors']['luong']['discrete'] = []
         
         # Fix dablain configuration - ensure k is at least 1
         if 'dablain' not in settings['preprocessors']:
