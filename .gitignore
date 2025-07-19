@@ -14,6 +14,7 @@ Dockerfile
 debiased/lib/
 debiased/include/
 debiased/bin/
+debiased/
 __pycache__/
 *.so
 *.dylib
