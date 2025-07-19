@@ -1,5 +1,8 @@
+# To run this script:
+# powershell -ExecutionPolicy Bypass -File setup.ps1
+
 Write-Host " Creating virtual environment..."
-python setup/scripts/install_env.py
+python setup/windows/install_env.py
 
 Write-Host " Activating virtual environment..."
 . .\debiased\Scripts\Activate.ps1
