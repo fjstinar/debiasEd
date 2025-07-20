@@ -1,4 +1,4 @@
-# DebiasED Jadouille GUI - Bias Mitigation for Educational Data
+# DebiasEd GUI - Bias Mitigation for Educational Data
 
 A comprehensive graphical user interface for the `debiased_jadouille` package, providing an end-to-end workflow for bias mitigation in educational data analysis.
 

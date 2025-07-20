@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Simple startup script for the DebiasED Jadouille GUI
+Simple startup script for the DebiasEd GUI
 
 This script ensures all dependencies are available and launches the GUI application.
 """
@@ -33,7 +33,7 @@ def check_dependencies():
 def main():
     """Main function to launch the GUI"""
     print("=" * 60)
-    print("DebiasED Jadouille - Bias Mitigation GUI")
+    print("DebiasEd - Bias Mitigation GUI")
     print("=" * 60)
     print()
     

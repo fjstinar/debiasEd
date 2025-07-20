@@ -109,7 +109,7 @@ def test_report_generation():
     
     try:
         full_report = []
-        full_report.append("=== DebiasED Jadouille Evaluation Report ===\n")
+        full_report.append("=== DebiasEd Evaluation Report ===\n")
         full_report.append(f"Generated: {pd.Timestamp.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
         
         # Data summary

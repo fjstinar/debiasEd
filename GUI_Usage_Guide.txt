@@ -1,5 +1,5 @@
 
-=== DebiasED Jadouille GUI Usage Guide ===
+=== DebiasEd GUI Usage Guide ===
 
 This guide walks you through using the GUI application for bias mitigation.
 

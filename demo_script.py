@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Demonstration script for the DebiasED Jadouille GUI
+Demonstration script for the DebiasEd GUI
 
 This script shows how to use the GUI components and demonstrates
 the complete workflow programmatically.
@@ -164,7 +164,7 @@ def create_gui_usage_guide():
     """Create a step-by-step usage guide for the GUI"""
     
     guide = """
-=== DebiasED Jadouille GUI Usage Guide ===
+=== DebiasEd GUI Usage Guide ===
 
 This guide walks you through using the GUI application for bias mitigation.
 
@@ -271,7 +271,7 @@ TROUBLESHOOTING:
 def main():
     """Main demonstration function"""
     print("=" * 60)
-    print("DebiasED Jadouille GUI - Demonstration Script")
+    print("DebiasEd GUI - Demonstration Script")
     print("=" * 60)
     
     # Create sample dataset

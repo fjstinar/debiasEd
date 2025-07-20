@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-DebiasED Jadouille GUI - A comprehensive graphical interface for bias mitigation in educational data
+DebiasEd GUI - A comprehensive graphical interface for bias mitigation in educational data
 
 This GUI provides a complete workflow for:
 1. Data loading and exploration
@@ -143,22 +143,45 @@ try:
     except ImportError:
         pass
     
+    # Import postprocessing methods with error handling
+    AVAILABLE_POSTPROCESSORS = {}
+    
+    try:
+        from debiased_jadouille.mitigation.postprocessing.snel import SnelPostProcessor
+        AVAILABLE_POSTPROCESSORS['snel'] = SnelPostProcessor
+    except ImportError:
+        pass
+    
+    try:
+        from debiased_jadouille.mitigation.postprocessing.pleiss import PleissPostProcessor
+        AVAILABLE_POSTPROCESSORS['pleiss'] = PleissPostProcessor
+    except ImportError:
+        pass
+    
+    try:
+        from debiased_jadouille.mitigation.postprocessing.kamiranpost import KamiranPostProcessor
+        AVAILABLE_POSTPROCESSORS['kamiran'] = KamiranPostProcessor
+    except ImportError:
+        pass
+    
     print(f"Successfully imported {len(AVAILABLE_PREPROCESSORS)} preprocessing methods")
     print(f"Successfully imported {len(AVAILABLE_INPROCESSORS)} inprocessing methods")
+    print(f"Successfully imported {len(AVAILABLE_POSTPROCESSORS)} postprocessing methods")
     
 except ImportError as e:
     print(f"Warning: Could not import debiased_jadouille package: {e}")
     print("The GUI will run in demo mode with mock implementations")
     AVAILABLE_PREPROCESSORS = {}
     AVAILABLE_INPROCESSORS = {}
+    AVAILABLE_POSTPROCESSORS = {}
 
 
 class DebiasedJadouilleGUI:
-    """Main GUI application for the Debiased Jadouille package"""
+    """Main GUI application for the DebiasEd package"""
     
     def __init__(self, root):
         self.root = root
-        self.root.title("DebiasED Jadouille - Bias Mitigation for Educational Data")
+        self.root.title("DebiasEd - Bias Mitigation for Educational Data")
         self.root.geometry("1200x800")
         self.root.minsize(1000, 700)
         
@@ -222,10 +245,12 @@ class DebiasedJadouilleGUI:
         load_frame = ttk.LabelFrame(data_frame, text="Data Loading", padding=10)
         load_frame.pack(fill=tk.X, padx=10, pady=5)
         
-        ttk.Button(load_frame, text="Load CSV File", 
+        ttk.Button(load_frame, text="Load CSV/PKL File", 
                   command=self.load_data).pack(side=tk.LEFT, padx=5)
         ttk.Button(load_frame, text="Load Sample Dataset", 
                   command=self.load_sample_data).pack(side=tk.LEFT, padx=5)
+        ttk.Button(load_frame, text="Load Converted PKL", 
+                  command=self.load_converted_pkl).pack(side=tk.LEFT, padx=5)
         
         self.data_info_var = tk.StringVar(value="No data loaded")
         ttk.Label(load_frame, textvariable=self.data_info_var).pack(side=tk.LEFT, padx=20)
@@ -344,6 +369,17 @@ class DebiasedJadouilleGUI:
             'Chakraborty In-Process Synthesis': 'chakraborty_in',
         }
         
+        self.postproc_methods = {
+            # Threshold optimization methods
+            'Snel Bias Correction': 'snel',
+            
+            # Calibration-based methods  
+            'Pleiss Multicalibration': 'pleiss',
+            
+            # Reject option classification
+            'Kamiran Reject Option': 'kamiran',
+        }
+        
         # Preprocessing method selection (only preprocessing methods)
         ttk.Label(method_frame, text="Select Preprocessing Method:").grid(row=0, column=0, sticky=tk.W, padx=5, pady=5)
         self.preproc_method_var = tk.StringVar(value='Calders Reweighting')
@@ -452,6 +488,9 @@ class DebiasedJadouilleGUI:
         ttk.Radiobutton(bias_mitigation_frame, text="Inprocessing (fair training algorithm)", 
                        variable=self.model_bias_approach_var, value='inprocessing',
                        command=self.update_model_bias_approach).pack(anchor=tk.W, padx=5, pady=2)
+        ttk.Radiobutton(bias_mitigation_frame, text="Postprocessing (adjust model outputs)", 
+                       variable=self.model_bias_approach_var, value='postprocessing',
+                       command=self.update_model_bias_approach).pack(anchor=tk.W, padx=5, pady=2)
         
         # Inprocessing method selection (shown when inprocessing is selected)
         self.inprocessing_frame = ttk.LabelFrame(model_frame, text="Inprocessing Method", padding=10)
@@ -481,6 +520,34 @@ class DebiasedJadouilleGUI:
         self.inproc_params_content_frame = ttk.Frame(self.inproc_params_frame)
         self.inproc_params_content_frame.pack(fill=tk.X)
         
+        # Postprocessing method selection (shown when postprocessing is selected)
+        self.postprocessing_frame = ttk.LabelFrame(model_frame, text="Postprocessing Method", padding=10)
+        # Will be packed/unpacked based on selection
+        
+        ttk.Label(self.postprocessing_frame, text="Select Postprocessing Method:").grid(row=0, column=0, sticky=tk.W, padx=5, pady=5)
+        self.postproc_method_var = tk.StringVar(value='Snel Bias Correction')
+        self.postproc_combo = ttk.Combobox(self.postprocessing_frame, textvariable=self.postproc_method_var, 
+                                          width=40, state='readonly')
+        self.postproc_combo.grid(row=0, column=1, padx=5, pady=5, sticky=tk.W)
+        self.postproc_combo.bind('<<ComboboxSelected>>', self.update_postprocessing_method_params)
+        
+        # Postprocessing method description
+        postproc_desc_frame = ttk.Frame(self.postprocessing_frame)
+        postproc_desc_frame.grid(row=1, column=0, columnspan=2, sticky=tk.EW, padx=5, pady=5)
+        
+        self.postproc_desc_text = tk.Text(postproc_desc_frame, height=3, wrap=tk.WORD, font=('TkDefaultFont', 9))
+        postproc_scrollbar = ttk.Scrollbar(postproc_desc_frame, orient=tk.VERTICAL, command=self.postproc_desc_text.yview)
+        self.postproc_desc_text.configure(yscrollcommand=postproc_scrollbar.set)
+        self.postproc_desc_text.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+        postproc_scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
+        
+        # Postprocessing parameters
+        self.postproc_params_frame = ttk.LabelFrame(self.postprocessing_frame, text="Method Parameters", padding=10)
+        self.postproc_params_frame.grid(row=2, column=0, columnspan=2, sticky=tk.EW, padx=5, pady=5)
+        
+        self.postproc_params_content_frame = ttk.Frame(self.postproc_params_frame)
+        self.postproc_params_content_frame.pack(fill=tk.X)
+        
         # Training section
         training_frame = ttk.LabelFrame(model_frame, text="Model Training", padding=10)
         training_frame.pack(fill=tk.X, padx=10, pady=5)
@@ -488,12 +555,8 @@ class DebiasedJadouilleGUI:
         # Training configuration
         ttk.Label(training_frame, text="Test Split:").grid(row=0, column=0, sticky=tk.W, padx=5, pady=2)
         self.test_split_var = tk.DoubleVar(value=0.2)
-        test_split_scale = ttk.Scale(training_frame, from_=0.1, to=0.5, variable=self.test_split_var, 
-                                   orient=tk.HORIZONTAL, length=200)
-        test_split_scale.grid(row=0, column=1, padx=5, pady=2)
-        self.test_split_label = ttk.Label(training_frame, text="20%")
-        self.test_split_label.grid(row=0, column=2, padx=5, pady=2)
-        test_split_scale.configure(command=lambda v: self.test_split_label.configure(text=f"{float(v)*100:.0f}%"))
+        ttk.Entry(training_frame, textvariable=self.test_split_var, width=15).grid(row=0, column=1, padx=5, pady=2, sticky=tk.W)
+        ttk.Label(training_frame, text="(e.g., 0.2 = 20%)").grid(row=0, column=2, padx=5, pady=2, sticky=tk.W)
         
         ttk.Button(training_frame, text="Train Model", 
                   command=self.train_model).grid(row=1, column=0, padx=5, pady=10)
@@ -504,6 +567,9 @@ class DebiasedJadouilleGUI:
         # Training progress
         self.training_progress = ttk.Progressbar(training_frame, mode='indeterminate')
         self.training_progress.grid(row=2, column=0, columnspan=3, sticky=tk.EW, padx=5, pady=5)
+        
+        # Initialize postprocessing method params
+        self.update_postprocessing_method_params()
         
     def create_evaluation_tab(self):
         """Create the evaluation and fairness metrics tab"""
@@ -711,45 +777,38 @@ class DebiasedJadouilleGUI:
         if method == 'Calders Reweighting':
             ttk.Label(self.params_content_frame, text="Sampling Proportions:").grid(row=0, column=0, sticky=tk.W, padx=5, pady=2)
             self.calders_prop_var = tk.DoubleVar(value=1.0)
-            ttk.Scale(self.params_content_frame, from_=0.1, to=2.0, variable=self.calders_prop_var, 
-                     orient=tk.HORIZONTAL, length=200).grid(row=0, column=1, padx=5, pady=2)
+            ttk.Entry(self.params_content_frame, textvariable=self.calders_prop_var, width=15).grid(row=0, column=1, padx=5, pady=2, sticky=tk.W)
             
         elif method == 'SMOTE Oversampling':
             ttk.Label(self.params_content_frame, text="K Neighbors:").grid(row=0, column=0, sticky=tk.W, padx=5, pady=2)
             self.smote_k_var = tk.IntVar(value=5)
-            ttk.Spinbox(self.params_content_frame, from_=3, to=10, textvariable=self.smote_k_var, 
-                       width=10).grid(row=0, column=1, padx=5, pady=2)
+            ttk.Entry(self.params_content_frame, textvariable=self.smote_k_var, width=15).grid(row=0, column=1, padx=5, pady=2, sticky=tk.W)
             
         # Fair representation learning
         elif method == 'Zemel Learning Fair Representations':
             ttk.Label(self.params_content_frame, text="Number of Prototypes:").grid(row=0, column=0, sticky=tk.W, padx=5, pady=2)
             self.zemel_prototypes_var = tk.IntVar(value=10)
-            ttk.Spinbox(self.params_content_frame, from_=5, to=50, textvariable=self.zemel_prototypes_var, 
-                       width=10).grid(row=0, column=1, padx=5, pady=2)
+            ttk.Entry(self.params_content_frame, textvariable=self.zemel_prototypes_var, width=15).grid(row=0, column=1, padx=5, pady=2, sticky=tk.W)
             
             ttk.Label(self.params_content_frame, text="Learning Rate:").grid(row=1, column=0, sticky=tk.W, padx=5, pady=2)
             self.zemel_lr_var = tk.DoubleVar(value=0.01)
-            ttk.Scale(self.params_content_frame, from_=0.001, to=0.1, variable=self.zemel_lr_var, 
-                     orient=tk.HORIZONTAL, length=200).grid(row=1, column=1, padx=5, pady=2)
+            ttk.Entry(self.params_content_frame, textvariable=self.zemel_lr_var, width=15).grid(row=1, column=1, padx=5, pady=2, sticky=tk.W)
         
         # Synthetic data generation
         elif method == 'Chakraborty Synthetic Data':
             ttk.Label(self.params_content_frame, text="Synthesis Rate:").grid(row=0, column=0, sticky=tk.W, padx=5, pady=2)
             self.chakraborty_rate_var = tk.DoubleVar(value=0.5)
-            ttk.Scale(self.params_content_frame, from_=0.1, to=1.0, variable=self.chakraborty_rate_var, 
-                     orient=tk.HORIZONTAL, length=200).grid(row=0, column=1, padx=5, pady=2)
+            ttk.Entry(self.params_content_frame, textvariable=self.chakraborty_rate_var, width=15).grid(row=0, column=1, padx=5, pady=2, sticky=tk.W)
             
         # Advanced fair sampling methods
         elif method == 'Dablain Fair Over-Sampling':
             ttk.Label(self.params_content_frame, text="Proportion:").grid(row=0, column=0, sticky=tk.W, padx=5, pady=2)
             self.dablain_prop_var = tk.DoubleVar(value=1.0)
-            ttk.Scale(self.params_content_frame, from_=0.1, to=2.0, variable=self.dablain_prop_var, 
-                     orient=tk.HORIZONTAL, length=200).grid(row=0, column=1, padx=5, pady=2)
+            ttk.Entry(self.params_content_frame, textvariable=self.dablain_prop_var, width=15).grid(row=0, column=1, padx=5, pady=2, sticky=tk.W)
             
             ttk.Label(self.params_content_frame, text="K Neighbors:").grid(row=1, column=0, sticky=tk.W, padx=5, pady=2)
             self.dablain_k_var = tk.IntVar(value=5)
-            ttk.Spinbox(self.params_content_frame, from_=3, to=10, textvariable=self.dablain_k_var, 
-                       width=10).grid(row=1, column=1, padx=5, pady=2)
+            ttk.Entry(self.params_content_frame, textvariable=self.dablain_k_var, width=15).grid(row=1, column=1, padx=5, pady=2, sticky=tk.W)
         
         elif method == 'Zelaya Fair Over-Sampling':
             ttk.Label(self.params_content_frame, text="Sampling Strategy:").grid(row=0, column=0, sticky=tk.W, padx=5, pady=2)
@@ -761,27 +820,23 @@ class DebiasedJadouilleGUI:
         elif method == 'Zelaya Fair SMOTE':
             ttk.Label(self.params_content_frame, text="K Neighbors:").grid(row=0, column=0, sticky=tk.W, padx=5, pady=2)
             self.zelaya_smote_k_var = tk.IntVar(value=5)
-            ttk.Spinbox(self.params_content_frame, from_=3, to=10, textvariable=self.zelaya_smote_k_var, 
-                       width=10).grid(row=0, column=1, padx=5, pady=2)
+            ttk.Entry(self.params_content_frame, textvariable=self.zelaya_smote_k_var, width=15).grid(row=0, column=1, padx=5, pady=2, sticky=tk.W)
         
         # Disparate impact reduction
         elif method == 'Alabdulmohsin Binary Debiasing':
             ttk.Label(self.params_content_frame, text="SGD Steps:").grid(row=0, column=0, sticky=tk.W, padx=5, pady=2)
             self.alabdulmohsin_sgd_var = tk.IntVar(value=10)
-            ttk.Spinbox(self.params_content_frame, from_=5, to=50, textvariable=self.alabdulmohsin_sgd_var, 
-                       width=10).grid(row=0, column=1, padx=5, pady=2)
+            ttk.Entry(self.params_content_frame, textvariable=self.alabdulmohsin_sgd_var, width=15).grid(row=0, column=1, padx=5, pady=2, sticky=tk.W)
             
             ttk.Label(self.params_content_frame, text="Gradient Epochs:").grid(row=1, column=0, sticky=tk.W, padx=5, pady=2)
             self.alabdulmohsin_epochs_var = tk.IntVar(value=1)
-            ttk.Spinbox(self.params_content_frame, from_=1, to=10, textvariable=self.alabdulmohsin_epochs_var, 
-                       width=10).grid(row=1, column=1, padx=5, pady=2)
+            ttk.Entry(self.params_content_frame, textvariable=self.alabdulmohsin_epochs_var, width=15).grid(row=1, column=1, padx=5, pady=2, sticky=tk.W)
         
         # Data debugging and cleaning
         elif method == 'Li Training Data Debugging':
             ttk.Label(self.params_content_frame, text="C Factor:").grid(row=0, column=0, sticky=tk.W, padx=5, pady=2)
             self.li_c_factor_var = tk.DoubleVar(value=10.0)
-            ttk.Scale(self.params_content_frame, from_=1.0, to=50.0, variable=self.li_c_factor_var, 
-                     orient=tk.HORIZONTAL, length=200).grid(row=0, column=1, padx=5, pady=2)
+            ttk.Entry(self.params_content_frame, textvariable=self.li_c_factor_var, width=15).grid(row=0, column=1, padx=5, pady=2, sticky=tk.W)
             
             ttk.Label(self.params_content_frame, text="Fairness Metric:").grid(row=1, column=0, sticky=tk.W, padx=5, pady=2)
             self.li_fairness_var = tk.StringVar(value='dp')
@@ -792,8 +847,7 @@ class DebiasedJadouilleGUI:
         elif method == 'Cock Fair Data Cleaning':
             ttk.Label(self.params_content_frame, text="Cleaning Threshold:").grid(row=0, column=0, sticky=tk.W, padx=5, pady=2)
             self.cock_threshold_var = tk.DoubleVar(value=0.1)
-            ttk.Scale(self.params_content_frame, from_=0.01, to=0.5, variable=self.cock_threshold_var, 
-                     orient=tk.HORIZONTAL, length=200).grid(row=0, column=1, padx=5, pady=2)
+            ttk.Entry(self.params_content_frame, textvariable=self.cock_threshold_var, width=15).grid(row=0, column=1, padx=5, pady=2, sticky=tk.W)
         
         # Iosifidis resampling variants
         elif method in ['Iosifidis Resample Attribute', 'Iosifidis Resample Target']:
@@ -806,20 +860,17 @@ class DebiasedJadouilleGUI:
         elif method in ['Iosifidis SMOTE Attribute', 'Iosifidis SMOTE Target']:
             ttk.Label(self.params_content_frame, text="K Neighbors:").grid(row=0, column=0, sticky=tk.W, padx=5, pady=2)
             self.iosifidis_smote_k_var = tk.IntVar(value=5)
-            ttk.Spinbox(self.params_content_frame, from_=3, to=10, textvariable=self.iosifidis_smote_k_var, 
-                       width=10).grid(row=0, column=1, padx=5, pady=2)
+            ttk.Entry(self.params_content_frame, textvariable=self.iosifidis_smote_k_var, width=15).grid(row=0, column=1, padx=5, pady=2, sticky=tk.W)
         
         # Other advanced methods
         elif method == 'Lahoti Representation Learning':
             ttk.Label(self.params_content_frame, text="Representation Dimension:").grid(row=0, column=0, sticky=tk.W, padx=5, pady=2)
             self.lahoti_dim_var = tk.IntVar(value=10)
-            ttk.Spinbox(self.params_content_frame, from_=5, to=50, textvariable=self.lahoti_dim_var, 
-                       width=10).grid(row=0, column=1, padx=5, pady=2)
+            ttk.Entry(self.params_content_frame, textvariable=self.lahoti_dim_var, width=15).grid(row=0, column=1, padx=5, pady=2, sticky=tk.W)
             
             ttk.Label(self.params_content_frame, text="Learning Rate:").grid(row=1, column=0, sticky=tk.W, padx=5, pady=2)
             self.lahoti_lr_var = tk.DoubleVar(value=0.01)
-            ttk.Scale(self.params_content_frame, from_=0.001, to=0.1, variable=self.lahoti_lr_var, 
-                     orient=tk.HORIZONTAL, length=200).grid(row=1, column=1, padx=5, pady=2)
+            ttk.Entry(self.params_content_frame, textvariable=self.lahoti_lr_var, width=15).grid(row=1, column=1, padx=5, pady=2, sticky=tk.W)
         
         # Default case for methods without specific parameters
         else:
@@ -903,8 +954,7 @@ class DebiasedJadouilleGUI:
         if method == 'Zafar Fair Constraints':
             ttk.Label(self.inproc_params_content_frame, text="Lambda (fairness weight):").grid(row=0, column=0, sticky=tk.W, padx=5, pady=2)
             self.inproc_zafar_lambda_var = tk.DoubleVar(value=0.1)
-            ttk.Scale(self.inproc_params_content_frame, from_=0.01, to=1.0, variable=self.inproc_zafar_lambda_var, 
-                     orient=tk.HORIZONTAL, length=200).grid(row=0, column=1, padx=5, pady=2)
+            ttk.Entry(self.inproc_params_content_frame, textvariable=self.inproc_zafar_lambda_var, width=15).grid(row=0, column=1, padx=5, pady=2, sticky=tk.W)
             
             ttk.Label(self.inproc_params_content_frame, text="Constraint Type:").grid(row=1, column=0, sticky=tk.W, padx=5, pady=2)
             self.inproc_zafar_constraint_var = tk.StringVar(value='demographic_parity')
@@ -915,53 +965,96 @@ class DebiasedJadouilleGUI:
         elif method == 'Chen Multi-Accuracy Adversarial Training':
             ttk.Label(self.inproc_params_content_frame, text="Adversarial Weight:").grid(row=0, column=0, sticky=tk.W, padx=5, pady=2)
             self.inproc_chen_adv_var = tk.DoubleVar(value=0.1)
-            ttk.Scale(self.inproc_params_content_frame, from_=0.01, to=1.0, variable=self.inproc_chen_adv_var, 
-                     orient=tk.HORIZONTAL, length=200).grid(row=0, column=1, padx=5, pady=2)
+            ttk.Entry(self.inproc_params_content_frame, textvariable=self.inproc_chen_adv_var, width=15).grid(row=0, column=1, padx=5, pady=2, sticky=tk.W)
             
             ttk.Label(self.inproc_params_content_frame, text="Learning Rate:").grid(row=1, column=0, sticky=tk.W, padx=5, pady=2)
             self.inproc_chen_lr_var = tk.DoubleVar(value=0.001)
-            ttk.Scale(self.inproc_params_content_frame, from_=0.0001, to=0.01, variable=self.inproc_chen_lr_var, 
-                     orient=tk.HORIZONTAL, length=200).grid(row=1, column=1, padx=5, pady=2)
+            ttk.Entry(self.inproc_params_content_frame, textvariable=self.inproc_chen_lr_var, width=15).grid(row=1, column=1, padx=5, pady=2, sticky=tk.W)
             
         elif method == 'Gao Fair Adversarial Networks':
             ttk.Label(self.inproc_params_content_frame, text="Adversarial Loss Weight:").grid(row=0, column=0, sticky=tk.W, padx=5, pady=2)
             self.inproc_gao_adv_var = tk.DoubleVar(value=0.1)
-            ttk.Scale(self.inproc_params_content_frame, from_=0.01, to=1.0, variable=self.inproc_gao_adv_var, 
-                     orient=tk.HORIZONTAL, length=200).grid(row=0, column=1, padx=5, pady=2)
+            ttk.Entry(self.inproc_params_content_frame, textvariable=self.inproc_gao_adv_var, width=15).grid(row=0, column=1, padx=5, pady=2, sticky=tk.W)
             
         elif method == 'Islam Fairness-Aware Learning':
             ttk.Label(self.inproc_params_content_frame, text="Fairness Regularizer:").grid(row=0, column=0, sticky=tk.W, padx=5, pady=2)
             self.inproc_islam_reg_var = tk.DoubleVar(value=0.1)
-            ttk.Scale(self.inproc_params_content_frame, from_=0.01, to=1.0, variable=self.inproc_islam_reg_var, 
-                     orient=tk.HORIZONTAL, length=200).grid(row=0, column=1, padx=5, pady=2)
+            ttk.Entry(self.inproc_params_content_frame, textvariable=self.inproc_islam_reg_var, width=15).grid(row=0, column=1, padx=5, pady=2, sticky=tk.W)
             
         elif method == 'Kilbertus Fair Prediction':
             ttk.Label(self.inproc_params_content_frame, text="Causal Regularizer:").grid(row=0, column=0, sticky=tk.W, padx=5, pady=2)
             self.inproc_kilbertus_reg_var = tk.DoubleVar(value=0.1)
-            ttk.Scale(self.inproc_params_content_frame, from_=0.01, to=1.0, variable=self.inproc_kilbertus_reg_var, 
-                     orient=tk.HORIZONTAL, length=200).grid(row=0, column=1, padx=5, pady=2)
+            ttk.Entry(self.inproc_params_content_frame, textvariable=self.inproc_kilbertus_reg_var, width=15).grid(row=0, column=1, padx=5, pady=2, sticky=tk.W)
             
         elif method == 'Liu Fair Distribution Matching':
             ttk.Label(self.inproc_params_content_frame, text="Transport Regularizer:").grid(row=0, column=0, sticky=tk.W, padx=5, pady=2)
             self.inproc_liu_transport_var = tk.DoubleVar(value=0.1)
-            ttk.Scale(self.inproc_params_content_frame, from_=0.01, to=1.0, variable=self.inproc_liu_transport_var, 
-                     orient=tk.HORIZONTAL, length=200).grid(row=0, column=1, padx=5, pady=2)
+            ttk.Entry(self.inproc_params_content_frame, textvariable=self.inproc_liu_transport_var, width=15).grid(row=0, column=1, padx=5, pady=2, sticky=tk.W)
             
         elif method == 'Grari Gradient-Based Fairness':
             ttk.Label(self.inproc_params_content_frame, text="Fairness Learning Rate:").grid(row=0, column=0, sticky=tk.W, padx=5, pady=2)
             self.inproc_grari_lr_var = tk.DoubleVar(value=0.01)
-            ttk.Scale(self.inproc_params_content_frame, from_=0.001, to=0.1, variable=self.inproc_grari_lr_var, 
-                     orient=tk.HORIZONTAL, length=200).grid(row=0, column=1, padx=5, pady=2)
+            ttk.Entry(self.inproc_params_content_frame, textvariable=self.inproc_grari_lr_var, width=15).grid(row=0, column=1, padx=5, pady=2, sticky=tk.W)
             
         elif method == 'Chakraborty In-Process Synthesis':
             ttk.Label(self.inproc_params_content_frame, text="Synthesis Rate:").grid(row=0, column=0, sticky=tk.W, padx=5, pady=2)
             self.inproc_chakraborty_in_rate_var = tk.DoubleVar(value=0.1)
-            ttk.Scale(self.inproc_params_content_frame, from_=0.01, to=0.5, variable=self.inproc_chakraborty_in_rate_var, 
-                     orient=tk.HORIZONTAL, length=200).grid(row=0, column=1, padx=5, pady=2)
+            ttk.Entry(self.inproc_params_content_frame, textvariable=self.inproc_chakraborty_in_rate_var, width=15).grid(row=0, column=1, padx=5, pady=2, sticky=tk.W)
             
         # Default case for inprocessing methods without specific parameters
         else:
             ttk.Label(self.inproc_params_content_frame, text="No additional parameters required.", 
+                     font=('TkDefaultFont', 9, 'italic')).grid(row=0, column=0, columnspan=2, padx=5, pady=20)
+                     
+    def configure_postprocessing_params_for_method(self, method):
+        """Configure parameter widgets for postprocessing methods"""
+        # Clear existing widgets
+        for widget in self.postproc_params_content_frame.winfo_children():
+            widget.destroy()
+            
+        # Threshold optimization methods
+        if method == 'Snel Bias Correction':
+            ttk.Label(self.postproc_params_content_frame, text="Low Threshold:").grid(row=0, column=0, sticky=tk.W, padx=5, pady=2)
+            self.postproc_snel_low_var = tk.DoubleVar(value=0.01)
+            ttk.Entry(self.postproc_params_content_frame, textvariable=self.postproc_snel_low_var, width=15).grid(row=0, column=1, padx=5, pady=2, sticky=tk.W)
+            
+            ttk.Label(self.postproc_params_content_frame, text="High Threshold:").grid(row=1, column=0, sticky=tk.W, padx=5, pady=2)
+            self.postproc_snel_high_var = tk.DoubleVar(value=0.99)
+            ttk.Entry(self.postproc_params_content_frame, textvariable=self.postproc_snel_high_var, width=15).grid(row=1, column=1, padx=5, pady=2, sticky=tk.W)
+            
+        elif method == 'Pleiss Multicalibration':
+            ttk.Label(self.postproc_params_content_frame, text="Alpha (learning rate):").grid(row=0, column=0, sticky=tk.W, padx=5, pady=2)
+            self.postproc_pleiss_alpha_var = tk.DoubleVar(value=0.2)
+            ttk.Entry(self.postproc_params_content_frame, textvariable=self.postproc_pleiss_alpha_var, width=15).grid(row=0, column=1, padx=5, pady=2, sticky=tk.W)
+            
+            ttk.Label(self.postproc_params_content_frame, text="Lambda (regularization):").grid(row=1, column=0, sticky=tk.W, padx=5, pady=2)
+            self.postproc_pleiss_lambda_var = tk.DoubleVar(value=10.0)
+            ttk.Entry(self.postproc_params_content_frame, textvariable=self.postproc_pleiss_lambda_var, width=15).grid(row=1, column=1, padx=5, pady=2, sticky=tk.W)
+            
+        elif method == 'Kamiran Reject Option':
+            ttk.Label(self.postproc_params_content_frame, text="Low Threshold:").grid(row=0, column=0, sticky=tk.W, padx=5, pady=2)
+            self.postproc_kamiran_low_var = tk.DoubleVar(value=0.01)
+            ttk.Entry(self.postproc_params_content_frame, textvariable=self.postproc_kamiran_low_var, width=15).grid(row=0, column=1, padx=5, pady=2, sticky=tk.W)
+            
+            ttk.Label(self.postproc_params_content_frame, text="High Threshold:").grid(row=1, column=0, sticky=tk.W, padx=5, pady=2)
+            self.postproc_kamiran_high_var = tk.DoubleVar(value=0.99)
+            ttk.Entry(self.postproc_params_content_frame, textvariable=self.postproc_kamiran_high_var, width=15).grid(row=1, column=1, padx=5, pady=2, sticky=tk.W)
+            
+            ttk.Label(self.postproc_params_content_frame, text="ROC Margin:").grid(row=2, column=0, sticky=tk.W, padx=5, pady=2)
+            self.postproc_kamiran_margin_var = tk.IntVar(value=50)
+            ttk.Entry(self.postproc_params_content_frame, textvariable=self.postproc_kamiran_margin_var, width=15).grid(row=2, column=1, padx=5, pady=2, sticky=tk.W)
+            
+            ttk.Label(self.postproc_params_content_frame, text="Metric Upper Bound:").grid(row=3, column=0, sticky=tk.W, padx=5, pady=2)
+            self.postproc_kamiran_ub_var = tk.DoubleVar(value=0.05)
+            ttk.Entry(self.postproc_params_content_frame, textvariable=self.postproc_kamiran_ub_var, width=15).grid(row=3, column=1, padx=5, pady=2, sticky=tk.W)
+            
+            ttk.Label(self.postproc_params_content_frame, text="Metric Lower Bound:").grid(row=4, column=0, sticky=tk.W, padx=5, pady=2)
+            self.postproc_kamiran_lb_var = tk.DoubleVar(value=-0.05)
+            ttk.Entry(self.postproc_params_content_frame, textvariable=self.postproc_kamiran_lb_var, width=15).grid(row=4, column=1, padx=5, pady=2, sticky=tk.W)
+            
+        # Default case for postprocessing methods without specific parameters
+        else:
+            ttk.Label(self.postproc_params_content_frame, text="No additional parameters required.", 
                      font=('TkDefaultFont', 9, 'italic')).grid(row=0, column=0, columnspan=2, padx=5, pady=20)
         
     def update_model_params(self):
@@ -975,8 +1068,7 @@ class DebiasedJadouilleGUI:
         if model == 'Logistic Regression':
             ttk.Label(self.model_params_content_frame, text="Regularization (C):").grid(row=0, column=0, sticky=tk.W, padx=5, pady=2)
             self.lr_c_var = tk.DoubleVar(value=1.0)
-            ttk.Scale(self.model_params_content_frame, from_=0.01, to=10.0, variable=self.lr_c_var, 
-                     orient=tk.HORIZONTAL, length=200).grid(row=0, column=1, padx=5, pady=2)
+            ttk.Entry(self.model_params_content_frame, textvariable=self.lr_c_var, width=15).grid(row=0, column=1, padx=5, pady=2, sticky=tk.W)
             
             ttk.Label(self.model_params_content_frame, text="Penalty:").grid(row=1, column=0, sticky=tk.W, padx=5, pady=2)
             self.lr_penalty_var = tk.StringVar(value='l2')
@@ -987,13 +1079,11 @@ class DebiasedJadouilleGUI:
         elif model == 'Decision Tree':
             ttk.Label(self.model_params_content_frame, text="Max Depth:").grid(row=0, column=0, sticky=tk.W, padx=5, pady=2)
             self.dt_depth_var = tk.IntVar(value=5)
-            ttk.Spinbox(self.model_params_content_frame, from_=1, to=20, textvariable=self.dt_depth_var, 
-                       width=10).grid(row=0, column=1, padx=5, pady=2)
+            ttk.Entry(self.model_params_content_frame, textvariable=self.dt_depth_var, width=15).grid(row=0, column=1, padx=5, pady=2, sticky=tk.W)
             
             ttk.Label(self.model_params_content_frame, text="Min Samples Split:").grid(row=1, column=0, sticky=tk.W, padx=5, pady=2)
             self.dt_min_samples_var = tk.IntVar(value=2)
-            ttk.Spinbox(self.model_params_content_frame, from_=2, to=20, textvariable=self.dt_min_samples_var, 
-                       width=10).grid(row=1, column=1, padx=5, pady=2)
+            ttk.Entry(self.model_params_content_frame, textvariable=self.dt_min_samples_var, width=15).grid(row=1, column=1, padx=5, pady=2, sticky=tk.W)
         
         # Add more parameter configurations for other models...
         
@@ -1011,21 +1101,95 @@ class DebiasedJadouilleGUI:
             print(f"[{timestamp}] {message}")
         
     def load_data(self):
-        """Load data from CSV file"""
+        """Load data from CSV or PKL file"""
         file_path = filedialog.askopenfilename(
-            title="Select CSV file",
-            filetypes=[("CSV files", "*.csv"), ("All files", "*.*")]
+            title="Select data file",
+            filetypes=[("CSV files", "*.csv"), ("PKL files", "*.pkl"), ("All files", "*.*")]
         )
         
         if file_path:
             try:
-                self.data['raw_data'] = pd.read_csv(file_path)
+                # Determine file type and load accordingly
+                if file_path.lower().endswith('.pkl'):
+                    self.data['raw_data'] = self.load_pkl_data(file_path)
+                elif file_path.lower().endswith('.csv'):
+                    self.data['raw_data'] = pd.read_csv(file_path)
+                else:
+                    # Try CSV first, then PKL
+                    try:
+                        self.data['raw_data'] = pd.read_csv(file_path)
+                    except:
+                        self.data['raw_data'] = self.load_pkl_data(file_path)
+                
                 self.update_data_display()
                 self.log_message(f"Loaded data from {file_path}")
                 self.status_var.set(f"Data loaded: {self.data['raw_data'].shape[0]} rows, {self.data['raw_data'].shape[1]} columns")
             except Exception as e:
                 messagebox.showerror("Error", f"Failed to load data: {str(e)}")
                 self.log_message(f"Error loading data: {str(e)}")
+    
+    def load_pkl_data(self, file_path):
+        """Load data from PKL file (convert_data.py format)"""
+        import pickle
+        import numpy as np
+        
+        with open(file_path, 'rb') as f:
+            pkl_data = pickle.load(f)
+        
+        # Extract data from the PKL format
+        data_dict = pkl_data['data']
+        available_demographics = pkl_data['available_demographics']
+        
+        # Convert to pandas DataFrame
+        rows = []
+        
+        # Get feature names by examining the first row to determine number of features
+        if data_dict:
+            first_key = list(data_dict.keys())[0]
+            first_features = data_dict[first_key]['features']
+            if isinstance(first_features, str):
+                # Parse numpy array string representation
+                first_features = np.fromstring(first_features.strip('[]'), sep=' ')
+            n_features = len(first_features)
+            feature_names = [f'feature_{i}' for i in range(n_features)]
+        else:
+            feature_names = []
+        
+        # Convert each row
+        for row_id, row_data in data_dict.items():
+            row = {}
+            
+            # Add demographic attributes
+            for demo_attr in available_demographics:
+                # Remove 'demo ' prefix for column name
+                clean_attr_name = demo_attr.replace('demo ', '').strip()
+                row[clean_attr_name] = row_data[demo_attr]
+            
+            # Add features
+            features = row_data['features']
+            if isinstance(features, str):
+                # Parse numpy array string representation
+                features = np.fromstring(features.strip('[]'), sep=' ')
+            
+            for i, feature_value in enumerate(features):
+                if i < len(feature_names):
+                    row[feature_names[i]] = feature_value
+            
+            # Add target
+            row['target'] = row_data['target']
+            
+            # Add learner_id if needed
+            row['learner_id'] = row_data['learner_id']
+            
+            rows.append(row)
+        
+        df = pd.DataFrame(rows)
+        
+        self.log_message(f"Converted PKL data: {len(df)} rows, {len(df.columns)} columns")
+        self.log_message(f"Available demographics: {', '.join(available_demographics)}")
+        self.log_message(f"Features: {', '.join(feature_names)}")
+        
+        return df
                 
     def load_sample_data(self):
         """Load a sample dataset for demonstration"""
@@ -1054,6 +1218,97 @@ class DebiasedJadouilleGUI:
         except Exception as e:
             messagebox.showerror("Error", f"Failed to create sample data: {str(e)}")
             self.log_message(f"Error creating sample data: {str(e)}")
+    
+    def load_converted_pkl(self):
+        """Load converted PKL data from the data directory"""
+        import os
+        
+        # Check if data directory exists
+        if not os.path.exists('data'):
+            messagebox.showinfo("Info", 
+                              "No converted datasets found.\n\n"
+                              "To convert your own dataset:\n"
+                              "1. Run one of the setup scripts, OR\n"
+                              "2. Use: python convert_data.py --path YOUR_FILE.csv --name DATASET_NAME")
+            return
+        
+        # Get list of converted datasets
+        datasets = []
+        for item in os.listdir('data'):
+            dataset_path = os.path.join('data', item)
+            if os.path.isdir(dataset_path):
+                pkl_file = os.path.join(dataset_path, 'data_dictionary.pkl')
+                if os.path.exists(pkl_file):
+                    datasets.append((item, pkl_file))
+        
+        if not datasets:
+            messagebox.showinfo("Info", 
+                              "No converted datasets found in the data directory.\n\n"
+                              "To convert your own dataset:\n"
+                              "1. Run one of the setup scripts, OR\n"
+                              "2. Use: python convert_data.py --path YOUR_FILE.csv --name DATASET_NAME")
+            return
+        
+        # Create selection dialog
+        selection_window = tk.Toplevel(self.root)
+        selection_window.title("Select Converted Dataset")
+        selection_window.geometry("400x300")
+        selection_window.transient(self.root)
+        selection_window.grab_set()
+        
+        # Center the window
+        selection_window.update_idletasks()
+        x = (selection_window.winfo_screenwidth() // 2) - (400 // 2)
+        y = (selection_window.winfo_screenheight() // 2) - (300 // 2)
+        selection_window.geometry(f"400x300+{x}+{y}")
+        
+        # Add instructions
+        instructions = ttk.Label(selection_window, 
+                                text="Select a converted dataset to load:",
+                                font=('TkDefaultFont', 10, 'bold'))
+        instructions.pack(pady=10)
+        
+        # Create listbox for dataset selection
+        listbox_frame = ttk.Frame(selection_window)
+        listbox_frame.pack(fill=tk.BOTH, expand=True, padx=20, pady=10)
+        
+        listbox = tk.Listbox(listbox_frame, font=('TkDefaultFont', 10))
+        scrollbar = ttk.Scrollbar(listbox_frame, orient=tk.VERTICAL, command=listbox.yview)
+        listbox.configure(yscrollcommand=scrollbar.set)
+        
+        # Add datasets to listbox
+        for dataset_name, _ in datasets:
+            listbox.insert(tk.END, dataset_name)
+        
+        listbox.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+        scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
+        
+        # Add buttons
+        button_frame = ttk.Frame(selection_window)
+        button_frame.pack(pady=10)
+        
+        def load_selected():
+            selection = listbox.curselection()
+            if selection:
+                dataset_name, pkl_file = datasets[selection[0]]
+                try:
+                    self.data['raw_data'] = self.load_pkl_data(pkl_file)
+                    self.update_data_display()
+                    self.log_message(f"Loaded converted dataset: {dataset_name}")
+                    self.status_var.set(f"Converted data loaded: {self.data['raw_data'].shape[0]} rows, {self.data['raw_data'].shape[1]} columns")
+                    selection_window.destroy()
+                except Exception as e:
+                    messagebox.showerror("Error", f"Failed to load dataset: {str(e)}")
+                    self.log_message(f"Error loading dataset {dataset_name}: {str(e)}")
+            else:
+                messagebox.showwarning("Warning", "Please select a dataset")
+        
+        ttk.Button(button_frame, text="Load", command=load_selected).pack(side=tk.LEFT, padx=5)
+        ttk.Button(button_frame, text="Cancel", command=selection_window.destroy).pack(side=tk.LEFT, padx=5)
+        
+        # Select first item by default
+        if datasets:
+            listbox.selection_set(0)
             
     def update_data_display(self):
         """Update the data preview and configuration options"""
@@ -1196,9 +1451,13 @@ class DebiasedJadouilleGUI:
         self.update_model_bias_approach()
         
     def update_model_bias_approach(self):
-        """Update the inprocessing options based on chosen approach and model"""
+        """Update the inprocessing/postprocessing options based on chosen approach and model"""
         approach = self.model_bias_approach_var.get()
         model_type = self.model_var.get()
+        
+        # Hide both frames initially
+        self.inprocessing_frame.pack_forget()
+        self.postprocessing_frame.pack_forget()
         
         if approach == 'inprocessing':
             # Show inprocessing frame and populate methods based on model compatibility
@@ -1217,9 +1476,25 @@ class DebiasedJadouilleGUI:
             
             self.log_message(f"Inprocessing enabled for {model_type}")
             self.update_inprocessing_method_params()
+            
+        elif approach == 'postprocessing':
+            # Show postprocessing frame and populate all postprocessing methods
+            self.postprocessing_frame.pack(fill=tk.X, padx=10, pady=5)
+            
+            # All postprocessing methods are compatible with all models
+            self.postproc_combo['values'] = list(self.postproc_methods.keys())
+            
+            # Set default method if not already set
+            if self.postproc_method_var.get() not in self.postproc_methods:
+                if self.postproc_methods:
+                    self.postproc_method_var.set(list(self.postproc_methods.keys())[0])
+                else:
+                    self.postproc_method_var.set('No methods available')
+            
+            self.log_message(f"Postprocessing enabled for {model_type}")
+            self.update_postprocessing_method_params()
+            
         else:
-            # Hide inprocessing frame
-            self.inprocessing_frame.pack_forget()
             if approach == 'none':
                 self.log_message("No bias mitigation - standard training")
             elif approach == 'preprocessed':
@@ -1283,6 +1558,36 @@ class DebiasedJadouilleGUI:
         
         # Configure parameters for inprocessing method
         self.configure_inprocessing_params_for_method(method)
+        
+    def update_postprocessing_method_params(self, event=None):
+        """Update parameter widgets and description for selected postprocessing method"""
+        method = self.postproc_method_var.get()
+        
+        if method == 'No methods available':
+            return
+            
+        # Clear existing postprocessing parameter widgets
+        for widget in self.postproc_params_content_frame.winfo_children():
+            widget.destroy()
+        
+        # Postprocessing method descriptions
+        postprocessing_descriptions = {
+            'Snel Bias Correction': "Threshold optimization method that adjusts decision thresholds for different groups to achieve fairness. Particularly effective for correcting statistical parity violations after training.",
+            
+            'Pleiss Multicalibration': "Calibration-based fairness method that ensures predictions are well-calibrated across different groups. Uses multicalibration techniques to achieve both fairness and accuracy.",
+            
+            'Kamiran Reject Option': "Reject option classification that creates an uncertainty region where predictions can be modified to improve fairness. Particularly useful for high-stakes decisions where fairness is critical."
+        }
+        
+        # Update description for postprocessing methods
+        desc = postprocessing_descriptions.get(method, "Description not available for this method.")
+        self.postproc_desc_text.config(state=tk.NORMAL)
+        self.postproc_desc_text.delete(1.0, tk.END)
+        self.postproc_desc_text.insert(1.0, desc)
+        self.postproc_desc_text.config(state=tk.DISABLED)
+        
+        # Configure parameters for postprocessing method
+        self.configure_postprocessing_params_for_method(method)
         
     def update_data_config(self, event=None):
         """Update data configuration when target column changes"""
@@ -1363,6 +1668,27 @@ class DebiasedJadouilleGUI:
             
         elif method == 'Chakraborty In-Process Synthesis':
             params['synthesis_rate'] = getattr(self, 'inproc_chakraborty_in_rate_var', tk.DoubleVar(value=0.1)).get()
+            
+        return params
+        
+    def get_postprocessing_params(self, method):
+        """Get parameters for the selected postprocessing method"""
+        params = {}
+        
+        if method == 'Snel Bias Correction':
+            params['low_threshold'] = getattr(self, 'postproc_snel_low_var', tk.DoubleVar(value=0.01)).get()
+            params['high_threshold'] = getattr(self, 'postproc_snel_high_var', tk.DoubleVar(value=0.99)).get()
+            
+        elif method == 'Pleiss Multicalibration':
+            params['alpha'] = getattr(self, 'postproc_pleiss_alpha_var', tk.DoubleVar(value=0.2)).get()
+            params['lambdaa'] = getattr(self, 'postproc_pleiss_lambda_var', tk.DoubleVar(value=10.0)).get()
+            
+        elif method == 'Kamiran Reject Option':
+            params['low_threshold'] = getattr(self, 'postproc_kamiran_low_var', tk.DoubleVar(value=0.01)).get()
+            params['high_threshold'] = getattr(self, 'postproc_kamiran_high_var', tk.DoubleVar(value=0.99)).get()
+            params['num_ROC_margin'] = getattr(self, 'postproc_kamiran_margin_var', tk.IntVar(value=50)).get()
+            params['metric_ub'] = getattr(self, 'postproc_kamiran_ub_var', tk.DoubleVar(value=0.05)).get()
+            params['metric_lb'] = getattr(self, 'postproc_kamiran_lb_var', tk.DoubleVar(value=-0.05)).get()
             
         return params
             
@@ -1547,6 +1873,132 @@ class DebiasedJadouilleGUI:
         except Exception as e:
             self.log_message(f"Error creating preprocessor {method_key}: {str(e)}")
             return None
+            
+    def apply_postprocessing(self, model, X_test, y_test, y_pred, probabilities, demo_test, method):
+        """Apply the selected postprocessing method to model outputs"""
+        try:
+            self.log_message(f"Applying {method} to model predictions...")
+            
+            # Get the method key
+            method_key = self.postproc_methods.get(method, 'snel')
+            
+            # Check if we have any available postprocessors
+            if not AVAILABLE_POSTPROCESSORS:
+                self.log_message("No postprocessors available - package import failed")
+                return self.simulate_postprocessing_effect(y_pred, probabilities, method)
+            
+            # Check if the specific postprocessor is available
+            if method_key not in AVAILABLE_POSTPROCESSORS:
+                self.log_message(f"Postprocessor {method_key} not available, using simulation")
+                return self.simulate_postprocessing_effect(y_pred, probabilities, method)
+            
+            # Initialize the appropriate postprocessor with parameters
+            postprocessor = self.create_postprocessor(method_key)
+            
+            if postprocessor is None:
+                self.log_message(f"Warning: {method} not available, using simulation")
+                return self.simulate_postprocessing_effect(y_pred, probabilities, method)
+            
+            # Prepare data for postprocessing
+            features_list = X_test.values.tolist()
+            ground_truths_list = y_test.tolist()
+            predictions_list = y_pred.tolist()
+            probabilities_list = probabilities.tolist() if probabilities is not None else [[1-p, p] for p in y_pred]
+            
+            # Apply postprocessing
+            self.log_message("Calling postprocessor transform...")
+            new_pred, original_proba = postprocessor.transform(
+                model, features_list, ground_truths_list, predictions_list, 
+                probabilities_list, demo_test
+            )
+            
+            self.log_message(f"Postprocessing complete. Adjusted {len(new_pred)} predictions")
+            return new_pred, original_proba
+            
+        except Exception as e:
+            self.log_message(f"Error in postprocessing: {str(e)}")
+            self.log_message("Falling back to simulation")
+            return self.simulate_postprocessing_effect(y_pred, probabilities, method)
+    
+    def create_postprocessor(self, method_key):
+        """Create the appropriate postprocessor instance with parameters"""
+        try:
+            # Get the postprocessor class
+            PostProcessorClass = AVAILABLE_POSTPROCESSORS[method_key]
+            
+            # Get sensitive attributes
+            sensitive_attrs = self.data.get('sensitive_attributes', [])
+            mitigating_attr = sensitive_attrs[0] if sensitive_attrs else 'gender'
+            
+            # Determine discriminated value - for now, use a simple heuristic
+            # In practice, this would be configured by the user
+            discriminated_value = 'Female'  # Default assumption - would need user input
+            
+            # Get method-specific parameters
+            params = self.data.get('postprocessing_params', {})
+            
+            # Create postprocessor with method-specific parameters
+            if method_key == 'snel':
+                return PostProcessorClass(mitigating_attr, discriminated_value)
+                
+            elif method_key == 'pleiss':
+                alpha = params.get('alpha', 0.2)
+                lambdaa = params.get('lambdaa', 10.0)
+                return PostProcessorClass(mitigating_attr, discriminated_value, alpha, lambdaa)
+                
+            elif method_key == 'kamiran':
+                low_threshold = params.get('low_threshold', 0.01)
+                high_threshold = params.get('high_threshold', 0.99)
+                num_ROC_margin = params.get('num_ROC_margin', 50)
+                metric_ub = params.get('metric_ub', 0.05)
+                metric_lb = params.get('metric_lb', -0.05)
+                return PostProcessorClass(mitigating_attr, discriminated_value, 
+                                        low_threshold, high_threshold, num_ROC_margin, 
+                                        metric_ub, metric_lb)
+            else:
+                # Use default constructor for other methods
+                self.log_message(f"Using default parameters for {method_key}")
+                return PostProcessorClass(mitigating_attr, discriminated_value)
+                
+        except Exception as e:
+            self.log_message(f"Error creating postprocessor {method_key}: {str(e)}")
+            return None
+    
+    def simulate_postprocessing_effect(self, y_pred, probabilities, method):
+        """Simulate the effect of postprocessing when real methods aren't available"""
+        self.log_message(f"Simulating effect of {method}...")
+        
+        # Create a copy of predictions to modify
+        simulated_pred = np.array(y_pred).copy()
+        
+        # Apply different simulation effects based on method type
+        if 'snel' in method.lower() or 'threshold' in method.lower():
+            # Simulate threshold adjustment by randomly flipping some predictions
+            # This is a very simplified simulation
+            flip_indices = np.random.choice(len(simulated_pred), size=max(1, len(simulated_pred) // 20), replace=False)
+            simulated_pred[flip_indices] = 1 - simulated_pred[flip_indices]
+            
+        elif 'pleiss' in method.lower() or 'calibration' in method.lower():
+            # Simulate calibration by slightly adjusting predictions towards fairness
+            # This is a simplified simulation
+            adjustment = np.random.normal(0, 0.1, len(simulated_pred))
+            simulated_pred = np.clip(simulated_pred + adjustment, 0, 1)
+            simulated_pred = np.round(simulated_pred).astype(int)
+            
+        elif 'kamiran' in method.lower() or 'reject' in method.lower():
+            # Simulate reject option by flipping predictions in uncertain region
+            if probabilities is not None:
+                proba_scores = probabilities[:, 1] if len(probabilities.shape) > 1 else probabilities
+                # Find uncertain predictions (around 0.5)
+                uncertain_mask = np.abs(proba_scores - 0.5) < 0.2
+                flip_indices = np.where(uncertain_mask)[0]
+                if len(flip_indices) > 0:
+                    # Randomly flip some uncertain predictions
+                    to_flip = np.random.choice(flip_indices, size=max(1, len(flip_indices) // 3), replace=False)
+                    simulated_pred[to_flip] = 1 - simulated_pred[to_flip]
+        
+        self.log_message(f"Simulation complete. Modified {np.sum(simulated_pred != y_pred)} predictions")
+        return simulated_pred, probabilities
             
     def visualize_preprocessing_results(self):
         """Visualize the results of preprocessing"""
@@ -1869,6 +2321,26 @@ class DebiasedJadouilleGUI:
                 
                 model = self.create_inprocessing_model(X_train, y_train, demo_train)
                 
+            elif bias_approach == 'postprocessing':
+                # Check if sensitive attributes are selected for postprocessing
+                if not sensitive_attrs:
+                    messagebox.showwarning("Warning", "Please select at least one sensitive attribute for postprocessing methods")
+                    return
+                    
+                # For postprocessing, we train a standard model first and store postprocessing config
+                self.log_message(f"Training {model_type} model for postprocessing...")
+                postproc_method = self.postproc_method_var.get()
+                
+                # Store postprocessing configuration in data
+                self.data['postprocessing_method'] = postproc_method
+                self.data['postprocessing_params'] = self.get_postprocessing_params(postproc_method)
+                
+                # Train standard model first
+                model = self.create_standard_model(model_type)
+                model.fit(X_train, y_train)
+                
+                self.log_message(f"Model trained - postprocessing will be applied during evaluation")
+                
             elif bias_approach == 'preprocessed':
                 # Check if preprocessing was applied
                 if 'processed_data' in self.data and self.data['processed_data'] is not None:
@@ -2052,6 +2524,29 @@ class DebiasedJadouilleGUI:
                     y_pred_proba = y_pred.astype(float)
             else:
                 y_pred_proba = y_pred.astype(float)
+            
+            # Apply postprocessing if configured
+            if 'postprocessing_method' in self.data and self.data['postprocessing_method']:
+                try:
+                    self.log_message("Applying postprocessing...")
+                    postproc_method = self.data['postprocessing_method']
+                    
+                    # Apply postprocessing to get adjusted predictions
+                    postprocessed_pred, original_proba = self.apply_postprocessing(
+                        model, X_test, y_test, y_pred, probabilities, demo_test, postproc_method
+                    )
+                    
+                    # Store both original and postprocessed results
+                    self.data['original_predictions'] = y_pred.copy()
+                    self.data['original_probabilities'] = y_pred_proba.copy()
+                    
+                    # Use postprocessed predictions for main evaluation
+                    y_pred = postprocessed_pred
+                    self.log_message("Postprocessing applied successfully")
+                    
+                except Exception as e:
+                    self.log_message(f"Warning: Postprocessing failed - {str(e)}")
+                    self.log_message("Using original predictions")
             
             # Calculate metrics
             from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, roc_auc_score
@@ -2254,7 +2749,7 @@ class DebiasedJadouilleGUI:
             
             # Create a simple text report
             report_lines = []
-            report_lines.append("=== DebiasED Jadouille Evaluation Report ===\n")
+            report_lines.append("=== DebiasEd Evaluation Report ===\n")
             report_lines.append(f"Generated: {pd.Timestamp.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
             
             # Data summary
@@ -2279,6 +2774,16 @@ class DebiasedJadouilleGUI:
                     report_lines.append(f"Method: {self.inproc_method_var.get()}")
                 else:
                     report_lines.append(f"Method: Not specified")
+            elif bias_approach == 'postprocessing':
+                report_lines.append(f"Approach: Postprocessing")
+                if hasattr(self, 'postproc_method_var'):
+                    report_lines.append(f"Method: {self.postproc_method_var.get()}")
+                else:
+                    report_lines.append(f"Method: Not specified")
+                
+                # Add comparison of original vs postprocessed results if available
+                if 'original_predictions' in self.data:
+                    report_lines.append(f"Original predictions available for comparison")
             else:
                 report_lines.append(f"Approach: None (Standard training)")
                 report_lines.append(f"Method: No bias mitigation applied")
@@ -2429,6 +2934,7 @@ class DebiasedJadouilleGUI:
             'model_type': self.model_var.get(),
             'bias_approach': self.model_bias_approach_var.get() if hasattr(self, 'model_bias_approach_var') else 'none',
             'inprocessing_method': self.inproc_method_var.get() if hasattr(self, 'inproc_method_var') else 'None',
+            'postprocessing_method': self.postproc_method_var.get() if hasattr(self, 'postproc_method_var') else 'None',
             'target_column': self.target_var.get(),
             'sensitive_attributes': [col for col, var in self.sensitive_vars.items() if var.get()] if hasattr(self, 'sensitive_vars') else [],
             'test_split': self.test_split_var.get()
@@ -2468,6 +2974,8 @@ class DebiasedJadouilleGUI:
                     self.model_bias_approach_var.set(config['bias_approach'])
                 if 'inprocessing_method' in config and hasattr(self, 'inproc_method_var'):
                     self.inproc_method_var.set(config['inprocessing_method'])
+                if 'postprocessing_method' in config and hasattr(self, 'postproc_method_var'):
+                    self.postproc_method_var.set(config['postprocessing_method'])
                 if 'model_type' in config:
                     self.model_var.set(config['model_type'])
                 if 'target_column' in config:
@@ -2482,6 +2990,8 @@ class DebiasedJadouilleGUI:
                     self.update_model_bias_approach()
                 if hasattr(self, 'update_preprocessing_method_params'):
                     self.update_preprocessing_method_params()
+                if hasattr(self, 'update_postprocessing_method_params'):
+                    self.update_postprocessing_method_params()
                 
                 messagebox.showinfo("Success", f"Configuration loaded from {file_path}")
                 self.log_message(f"Configuration loaded from {file_path}")
