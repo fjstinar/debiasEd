@@ -2056,17 +2056,8 @@ class DebiasedJadouilleGUI:
                     axes[0, 1].set_ylabel('Count')
                     axes[0, 1].tick_params(axis='x', rotation=45)
             
-            # Plot 3: Correlation matrix (numerical columns only)
-            numeric_cols = df.select_dtypes(include=[np.number]).columns
-            if len(numeric_cols) > 1:
-                corr_matrix = df[numeric_cols].corr()
-                im = axes[1, 0].imshow(corr_matrix, cmap='coolwarm', vmin=-1, vmax=1)
-                axes[1, 0].set_title('Feature Correlations (After)')
-                axes[1, 0].set_xticks(range(len(numeric_cols)))
-                axes[1, 0].set_yticks(range(len(numeric_cols)))
-                axes[1, 0].set_xticklabels(numeric_cols, rotation=45)
-                axes[1, 0].set_yticklabels(numeric_cols)
-                fig.colorbar(im, ax=axes[1, 0])
+            # Plot 3: Empty (correlation plot removed)
+            axes[1, 0].set_visible(False)
             
             # Plot 4: Target vs sensitive attribute (bias analysis after preprocessing)
             if sensitive_attrs and target_col in df.columns:
