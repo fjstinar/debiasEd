@@ -2,7 +2,7 @@
 set -e
 
 echo "Step 1: Installing virtual environment (if needed)..."
-python3 setup/macos/install_env.py
+python3 setup/unix/install_env.py
 
 echo "Step 2: Activating 'debiased' virtual environment..."
 source debiased/bin/activate
